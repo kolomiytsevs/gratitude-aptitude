@@ -4,7 +4,13 @@
   "description": "gratitude-aptitude-node",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm install --prefix client",
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Sasha Kolomiytsev",
   "license": "ISC",
@@ -13,11 +19,17 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "babel": "^6.23.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
+    "es6-promise": "^4.2.8",
     "express": "^4.17.1",
-    "helmet": "^3.18.0"
+    "helmet": "^3.18.0",
+    "isomorphic-fetch": "^2.2.1",
+    "node-fetch": "^2.6.0",
+    "register": "0.0.0",
+    "unsplash-js": "^5.0.0"
   }
 }

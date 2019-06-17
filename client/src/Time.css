@@ -1,0 +1,11 @@
+.time{
+    text-align: center;
+    color:white;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.705);
+    font-size:25px;
+}
+
+.time h1{
+    font-weight:400;
+    margin:20px 0px;
+}

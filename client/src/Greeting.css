@@ -1,0 +1,12 @@
+.greeting{
+    z-index:100;
+    color:white;
+    text-align: center;
+    font-size:22px;
+    
+}
+
+.greeting h1{
+    font-weight: 600;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.705);
+}
