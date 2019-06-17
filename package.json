@@ -1,0 +1,23 @@
+{
+  "name": "gratitude-aptitude",
+  "version": "1.0.0",
+  "description": "gratitude-aptitude-node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sasha Kolomiytsev",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.0.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0"
+  }
+}
