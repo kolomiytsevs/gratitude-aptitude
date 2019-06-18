@@ -6,8 +6,8 @@ const Unsplash = require('unsplash-js').default
 require('dotenv').config()
 
 const unsplash = new Unsplash({
-    applicationId: process.env.APP_ACCESS_KEY,
-    secret: process.env.APP_SECRET
+    applicationId: process.env.UNSPLASH_ACCESS_KEY,
+    secret: process.env.UNSPLASH_SECRET
   });
 
   router.route('/unsplash_random_api').get((req, res)=>{

@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const helmet = require('helmet')
+const mongoose = require('mongoose')
 const cors = require('cors')
 const fetch = require('node-fetch');
 const path = require('path');
@@ -12,10 +13,12 @@ global.fetch = require('node-fetch')
 const app = express()
 const port = process.env.PORT || 5000
 
+const Schema = mongoose.Schema
+
 app.use(function (req, res, next) {
-    res.removeHeader("x-powered-by");
-    next();
-  });
+    res.removeHeader("x-powered-by")
+    next()
+  })
   app.use(helmet({
     dnsPrefetchControl: false
   }))
@@ -29,6 +32,13 @@ app.use(function(req, res, next) {
   });
 
 
-app.use('/api/unsplash', require('./routes/api/unsplash'));
+app.use('/api/unsplash', require('./routes/api/unsplash'))
+
+let MONGO_URI=process.env.MONGO_URI_SECRET
+
+mongoose.connect(MONGO_URI, {useNewUrlParser:true}).then(
+  ()=> {console.log("database is connected")},
+  err => {console.log("cannot connect to database")}
+)
 
 app.listen(port, ()=> console.log(`server started on port ${port}`))
