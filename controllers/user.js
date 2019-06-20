@@ -1,7 +1,8 @@
-const mongoose = require("mongoose") 
+const mongoose = require("mongoose").set('debug', true); 
 const bcrypt = require("bcrypt") 
 const jwt = require("jsonwebtoken") 
 const {DateTime} = require('luxon')
+const uuidv1 = require('uuid/v1')
 
 const db = mongoose.connection
 
@@ -120,6 +121,7 @@ exports.diary_create_entry = (req, res, next) => {
     
     const submittedField = new SubmittedField({
         _id: new mongoose.Types.ObjectId(),
+        uid:uuidv1(),
         dateId: standardDate,
         date: msDateNow,
         field:req.body.field,
@@ -128,6 +130,7 @@ exports.diary_create_entry = (req, res, next) => {
 
     const entry = new DiaryEntry({
         _id: new mongoose.Types.ObjectId(),
+        uid:uuidv1(),
         dateId: standardDate,
         date: msDateNow,
         entryDate: entryDate,
@@ -336,55 +339,109 @@ exports.diary_create_entry = (req, res, next) => {
     })
   }
 
-  exports.diary_delete_field = (req, res, next) => {
-    User.findOne({ email: req.body.email })
-    .exec()
-    .then(user => {
-      
-      if (user.length < 1) {
-        return res.status(401).json({
-          message: "user not found"
-        }) 
-      }
-      else{
-          if(user.entries.length < 1){
-              res.json({
-                message:"no entries to delete"
-              })
-          }else{
-
-            User.update(
-              {email: req.body.email}, 
-              {$pull: {entries: {
-                submittedFields :{
-                  $elemMatch:{
-                    dateId:req.body.dateId
-                  }
-                }       
-                }}},
-                { multi: true }
-            )
-            .then(result => {
-              console.log(result)  
-              res.status(201).json({
-                message: "field deleted"
-              }) 
-            })
-            .catch(err => {
-              console.log(err) 
-              res.status(500).json({
-                error: err
-              }) 
-            })
-          }
-      } 
-    })
-    .catch(err => {
-      console.log(err) 
-      res.status(500).json({
-        error: err
+exports.diary_delete_field = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+  .exec()
+  .then(user => {
+    
+    if (user.length < 1) {
+      return res.status(401).json({
+        message: "user not found"
       }) 
-    })
-  }
+    }
+    else{
+        if(user.entries.length < 1){
+            res.json({
+              message:"no entries to delete"
+            })
+        }else{
 
+          /*User.update(
+            {"entries.submittedFields.date":req.body.date}, 
+            {$pull: {entries: {
+              submittedFields :{
+                $elemMatch:{
+                  date:req.body.date
+                }
+              }       
+              }}}
+          )*/
+          User.updateOne(
+            {"entries.submittedFields.uid":req.params.fieldId}, 
+            {$pull: {
+              "entries.$.submittedFields": {uid: req.params.fieldId}
+            }}
+          )
+          .then(result => {
+            console.log(result)  
+            res.status(201).json({
+              message: "field deleted"
+            }) 
+          })
+          .catch(err => {
+            console.log(err) 
+            res.status(500).json({
+              error: err
+            }) 
+          })
+        }
+    } 
+  })
+  .catch(err => {
+    console.log(err) 
+    res.status(500).json({
+      error: err
+    }) 
+  })
+}
+
+exports.diary_update_field = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+  .exec()
+  .then(user => {
+    
+    if (user.length < 1) {
+      return res.status(401).json({
+        message: "user not found"
+      }) 
+    }
+    else{
+        if(user.entries.length < 1){
+            res.json({
+              message:"no entries to edit"
+            })
+        }else{
+          User.updateOne(
+            {email:req.body.email}, 
+            {$set: 
+              {'entries.$[outer].submittedFields.$[inner].text': req.body.text}
+            },
+            {
+              arrayFilters: [
+                {"outer.dateId": req.body.dateId}, 
+                {"inner.uid": req.params.fieldId}
+              ]
+            })
+          .then(result => {
+            console.log(result)  
+            res.status(201).json({
+              message: "field updated"
+            }) 
+          })
+          .catch(err => {
+            console.log(err) 
+            res.status(500).json({
+              error: err
+            }) 
+          })
+        }
+    } 
+  })
+  .catch(err => {
+    console.log(err) 
+    res.status(500).json({
+      error: err
+    }) 
+  })
+}
   

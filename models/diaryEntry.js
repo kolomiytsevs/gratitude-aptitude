@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const DiaryEntrySchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    uid: {type:String, required:true},
     dateId: {type:String, required:true},
     date: {type:String, required:true},
     entryDate: {type:String, required:true},

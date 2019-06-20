@@ -25,6 +25,7 @@ const emailValidator = [
 
 const SubmittedFieldSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    uid: {type:String, required:true},
     dateId: {type:String, required:true},
     date: {type:String, required:true},
     field:{type:String, required:true},

@@ -12,7 +12,9 @@ router.post("/new_entry", UserController.diary_create_entry);
 
 router.post("/get_entries", UserController.diary_get_entries);
 
-router.post("/delete_field", UserController.diary_delete_field);
+router.post("/delete_field/:fieldId", UserController.diary_delete_field);
+
+router.post("/update_field/:fieldId", UserController.diary_update_field);
 
 router.delete("/:userId", checkAuth, UserController.user_delete);
 
