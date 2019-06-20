@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken")
 
 const User = require("../models/user")
 const DiaryEntry = require("../models/diaryEntry")
+const SubmittedField = require("../models/SubmittedField")
 
 exports.user_signup = (req, res, next) => {
   User.find({ email: req.body.email })
@@ -54,7 +55,7 @@ exports.user_login = (req, res, next) => {
           message: "user not found"
         }) 
       }
-      console.log(user)
+      console.log(user[0].entries.length < 1)
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
         if (err) {
           return res.status(401).json({
@@ -106,29 +107,43 @@ exports.user_delete = (req, res, next) => {
     }) 
 } 
 
+let testArr = {
+"date" : "13 June 2019",
+"addedFields" : [
+    {
+        "field":"intention",
+        "text":"create api routes",
+        "_id": "123g17bbd213ehl"
+    }
+]}
+
 exports.diary_create_entry = (req, res, next) => {
-
-    const entrie = new DiaryEntry({
+    const currentDateTime = new Date()
+    const calendarDate = currentDateTime.getDate() + "-" + (currentDateTime.getMonth() + 1) + "-" + currentDateTime.getFullYear()
+    
+    const submittedField = new SubmittedField({
         _id: new mongoose.Types.ObjectId(),
-        date: new Date(),
-        intention: req.body.intention,
-        gratitude: req.body.gratitude,
-        highlight: req.body.highlight,
-        love: req.body.love
-      })
+        dateId: calendarDate,
+        date: currentDateTime,
+        field:req.body.field,
+        text:req.body.text
+    })
 
-    User.findOneAndUpdate(
+    const entry = new DiaryEntry({
+        _id: new mongoose.Types.ObjectId(),
+        dateId: calendarDate,
+        date: currentDateTime,
+        submittedFields: [submittedField]
+    }) 
+
+    const newEntry = () => User.findOneAndUpdate(
         { email: req.body.email }, 
-        { $push: { 
-                  entries: {
-                    entrie
-                    }  
-                } 
+        { $push: {entries: entry} 
         })
     .then(result => {
         console.log(result) 
         res.status(201).json({
-          message: "entrie added"
+          message: "entry added"
         }) 
       })
       .catch(err => {
@@ -136,7 +151,102 @@ exports.diary_create_entry = (req, res, next) => {
         res.status(500).json({
           error: err
         }) 
+      })  
+
+    const newField = () => User
+    .findOneAndUpdate(
+        { email: req.body.email }, 
+        { $push: {"entries.0.submittedFields": submittedField} 
+        })
+    .then(result => {
+        console.log(result) 
+        res.status(201).json({
+          message: "field added"
+        }) 
       })
+      .catch(err => {
+        console.log(err) 
+        res.status(500).json({
+          error: err
+        }) 
+      })    
+
+    //User.findOne({"entries.0.dateId": req.body.dateId}, function(err,obj) { console.log(obj); })  
+
+    /*User.find({ "entries.0.dateId": req.body.dateId })
+    .exec()
+    .then(user => {
+      console.log(user[0].entries[0][dateId]) 
+    })
+    .catch(err => {
+      console.log(err) 
+      res.status(500).json({
+        error: err
+      }) 
+    })*/
+
+    User.find().elemMatch("entries", {"dateId":req.body.dateId})
+    .exec()
+    .then(user => {
+        console.log(user)
+    })
+    .catch(err => {
+      console.log(err) 
+      res.status(500).json({
+        error: err
+      }) 
+    })
+
+
+    User.find({ email: req.body.email })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "user not found"
+        }) 
+      }
+      else{
+          if(user[0].entries.length < 1 ){
+              newEntry()
+          }else{
+              newField()
+          }
+      } 
+    })
+    .catch(err => {
+      console.log(err) 
+      res.status(500).json({
+        error: err
+      }) 
+    })
+
+
+    /*const entry = new DiaryEntry({
+        _id: new mongoose.Types.ObjectId(),
+        date: new Date(),
+        intention: req.body.intention,
+        gratitude: req.body.gratitude,
+        highlight: req.body.highlight,
+        love: req.body.love
+      })*/
+    
+    /*User.findOneAndUpdate(
+        { email: req.body.email }, 
+        { $push: {entries: entry} 
+        })
+    .then(result => {
+        console.log(result) 
+        res.status(201).json({
+          message: "entry added"
+        }) 
+      })
+      .catch(err => {
+        console.log(err) 
+        res.status(500).json({
+          error: err
+        }) 
+      })*/
       
     /*User.findOneAndUpdate({email:req.body.email}, {$set: {entries:entrie}}, {new:true})
     .then(result => {
