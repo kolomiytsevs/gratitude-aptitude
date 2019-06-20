@@ -1,10 +1,14 @@
 const mongoose = require("mongoose") 
 const bcrypt = require("bcrypt") 
 const jwt = require("jsonwebtoken") 
+const {DateTime} = require('luxon')
+
+const db = mongoose.connection
 
 const User = require("../models/user")
 const DiaryEntry = require("../models/diaryEntry")
 const SubmittedField = require("../models/SubmittedField")
+
 
 exports.user_signup = (req, res, next) => {
   User.find({ email: req.body.email })
@@ -107,36 +111,30 @@ exports.user_delete = (req, res, next) => {
     }) 
 } 
 
-let testArr = {
-"date" : "13 June 2019",
-"addedFields" : [
-    {
-        "field":"intention",
-        "text":"create api routes",
-        "_id": "123g17bbd213ehl"
-    }
-]}
-
 exports.diary_create_entry = (req, res, next) => {
     const currentDateTime = new Date()
+    const standardDate = DateTime.local().toFormat(`yyMMdd`)
+    const entryDate = DateTime.local().toFormat(`dd/MM/yy`)
+    const msDateNow = Date.now()
     const calendarDate = currentDateTime.getDate() + "-" + (currentDateTime.getMonth() + 1) + "-" + currentDateTime.getFullYear()
     
     const submittedField = new SubmittedField({
         _id: new mongoose.Types.ObjectId(),
-        dateId: calendarDate,
-        date: currentDateTime,
+        dateId: standardDate,
+        date: msDateNow,
         field:req.body.field,
         text:req.body.text
     })
 
     const entry = new DiaryEntry({
         _id: new mongoose.Types.ObjectId(),
-        dateId: calendarDate,
-        date: currentDateTime,
+        dateId: standardDate,
+        date: msDateNow,
+        entryDate: entryDate,
         submittedFields: [submittedField]
     }) 
 
-    const newEntry = () => User.findOneAndUpdate(
+    /*const newEntry = () => User.findOneAndUpdate(
         { email: req.body.email }, 
         { $push: {entries: entry} 
         })
@@ -151,7 +149,7 @@ exports.diary_create_entry = (req, res, next) => {
         res.status(500).json({
           error: err
         }) 
-      })  
+      }) */ 
 
     const newField = () => User
     .findOneAndUpdate(
@@ -185,10 +183,18 @@ exports.diary_create_entry = (req, res, next) => {
       }) 
     })*/
 
-    User.find().elemMatch("entries", {"dateId":req.body.dateId})
-    .exec()
-    .then(user => {
-        console.log(user)
+    const newEntry = () => User.update(
+      {email: req.body.email}, 
+      {$push: {entries: {
+        $sort:{dateId:-1},
+        $each:[entry]        
+        }}}
+    )
+    .then(result => {
+      console.log(result)  
+      res.status(201).json({
+        message: "entry added"
+      }) 
     })
     .catch(err => {
       console.log(err) 
@@ -201,15 +207,17 @@ exports.diary_create_entry = (req, res, next) => {
     User.find({ email: req.body.email })
     .exec()
     .then(user => {
+      
       if (user.length < 1) {
         return res.status(401).json({
           message: "user not found"
         }) 
       }
       else{
-          if(user[0].entries.length < 1 ){
+          if(user[0].entries.length < 1 || user[0].entries[0].dateId!=standardDate){
               newEntry()
           }else{
+              
               newField()
           }
       } 
@@ -297,3 +305,86 @@ exports.diary_create_entry = (req, res, next) => {
       }
     })*/ 
   } 
+
+
+  exports.diary_get_entries = (req, res, next) => {
+    User.findOne({ email: req.body.email })
+    .exec()
+    .then(user => {
+      
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "user not found"
+        }) 
+      }
+      else{
+          if(user.entries.length < 1){
+              res.json({
+                message:"no entries"
+              })
+          }else{
+              
+             res.json(user.entries)
+          }
+      } 
+    })
+    .catch(err => {
+      console.log(err) 
+      res.status(500).json({
+        error: err
+      }) 
+    })
+  }
+
+  exports.diary_delete_field = (req, res, next) => {
+    User.findOne({ email: req.body.email })
+    .exec()
+    .then(user => {
+      
+      if (user.length < 1) {
+        return res.status(401).json({
+          message: "user not found"
+        }) 
+      }
+      else{
+          if(user.entries.length < 1){
+              res.json({
+                message:"no entries to delete"
+              })
+          }else{
+
+            User.update(
+              {email: req.body.email}, 
+              {$pull: {entries: {
+                submittedFields :{
+                  $elemMatch:{
+                    dateId:req.body.dateId
+                  }
+                }       
+                }}},
+                { multi: true }
+            )
+            .then(result => {
+              console.log(result)  
+              res.status(201).json({
+                message: "field deleted"
+              }) 
+            })
+            .catch(err => {
+              console.log(err) 
+              res.status(500).json({
+                error: err
+              }) 
+            })
+          }
+      } 
+    })
+    .catch(err => {
+      console.log(err) 
+      res.status(500).json({
+        error: err
+      }) 
+    })
+  }
+
+  

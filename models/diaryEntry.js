@@ -5,7 +5,8 @@ const DiaryEntrySchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     dateId: {type:String, required:true},
     date: {type:String, required:true},
-    submittedFields: {type:Array, default: []}
+    entryDate: {type:String, required:true},
+    submittedFields: {type:Array, required:true, default: []}
 })
 
 /*

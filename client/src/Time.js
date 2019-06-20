@@ -18,6 +18,7 @@ class Time extends React.Component{
     }
 
     getTime(){
+
         this.setState({
             time: DateTime.local().toFormat(`HH:mm:ss`)
         })
