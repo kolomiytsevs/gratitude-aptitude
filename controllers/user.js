@@ -9,10 +9,23 @@ const db = mongoose.connection
 const User = require("../models/user")
 const DiaryEntry = require("../models/diaryEntry")
 const SubmittedField = require("../models/SubmittedField")
+const auth = require('../middleware/auth')
 
 
-exports.user_signup = (req, res, next) => {
-  User.find({ email: req.body.email })
+exports.user_signup = async (req, res) => {
+
+  // Create a new user
+  try {
+    const user = new User(req.body)
+    await user.save()
+    const token = await user.generateAuthToken()
+    res.status(201).send({ user, token, message: "User created"})
+  } catch (error) {
+    res.status(400).send(error)
+}
+
+
+  /*User.find({ email: req.body.email })
     .exec()
     .then(user => {
       if (user.length >= 1) {
@@ -48,11 +61,27 @@ exports.user_signup = (req, res, next) => {
           }
         }) 
       }
-    }) 
+    }) */
 } 
 
-exports.user_login = (req, res, next) => {
-  User.find({ email: req.body.email })
+exports.user_login = async (req, res) => {
+  try {
+    console.log("inititated")
+    const { email, password } = req.body
+    console.log("email and password retieved")
+    const user = await User.findByCredentials(email, password)
+    console.log(user)
+    if (!user) {
+        return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+    }
+    const token = await user.generateAuthToken()
+    res.send({ user, token })
+    } 
+    catch (error) {
+    res.status(400).send(error)
+    } 
+  
+  /*User.find({ email: req.body.email })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -93,7 +122,7 @@ exports.user_login = (req, res, next) => {
       res.status(500).json({
         error: err
       }) 
-    }) 
+    }) */
 } 
 
 exports.user_delete = (req, res, next) => {
@@ -444,4 +473,30 @@ exports.diary_update_field = (req, res, next) => {
     }) 
   })
 }
-  
+
+exports.user_profile = async (req, res, next) =>{
+  res.send(req.user)
+}
+
+exports.user_logout = async (req, res, next) =>{
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => {
+        return token.token != req.token
+    })
+    await req.user.save()
+    res.send()
+  } catch (error) {
+    res.status(500).send(error)
+    }
+}
+
+exports.user_logout_all = async (req, res, next) =>{
+  try {
+    req.user.tokens.splice(0, req.user.tokens.length)
+    await req.user.save()
+    res.send()
+  } catch (error) {
+    res.status(500).send(error)
+  }
+
+}
