@@ -18,18 +18,24 @@ const Schema = mongoose.Schema
 app.use(function (req, res, next) {
     res.removeHeader("x-powered-by")
     next()
-  })
-  app.use(helmet({
-    dnsPrefetchControl: false
-  }))
-app.use(bodyParser.json())
+})
+app.use(helmet({
+  dnsPrefetchControl: false
+}))
 app.use(compression())
-app.use(express.json())
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(express.json()) 
+
+app.use((req, res, next)=>{
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, PATCH, DELETE')
+    return res.status(200).json({})
+  }
+  next()
+})
 
 
 app.use('/api/unsplash', require('./routes/api/unsplash'))
