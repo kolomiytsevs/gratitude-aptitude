@@ -10,7 +10,7 @@ router.post("/login", UserController.user_login)
 
 router.post("/new_entry", checkAuth, UserController.diary_create_entry) 
 
-router.post("/get_entries", checkAuth, UserController.diary_get_entries) 
+router.get("/get_entries", checkAuth, UserController.diary_get_entries) 
 
 router.post("/delete_field/:fieldId", checkAuth, UserController.diary_delete_field) 
 
