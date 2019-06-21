@@ -16,10 +16,20 @@ exports.user_signup = async (req, res) => {
 
   // Create a new user
   try {
-    const user = new User(req.body)
-    await user.save()
-    const token = await user.generateAuthToken()
-    res.status(201).send({ user, token, message: "User created"})
+    let data = User.find({email: req.body.email})
+    let result = await data
+    let length = result.length
+    if(length<1){
+      const user = new User(req.body)
+      await user.save()
+      const name = user.name 
+      const email = user.email
+      const token = await user.generateAuthToken()
+      res.status(201).send({ name, email, token, message: "User created"})
+    }else{
+      res.json({message: "user already exists"})
+    }  
+    
   } catch (error) {
     res.status(400).send(error)
 }
@@ -66,16 +76,19 @@ exports.user_signup = async (req, res) => {
 
 exports.user_login = async (req, res) => {
   try {
-    console.log("inititated")
     const { email, password } = req.body
-    console.log("email and password retieved")
+    console.log('trying to look for user')
     const user = await User.findByCredentials(email, password)
     console.log(user)
     if (!user) {
-        return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+        return res.send({message: 'Login failed! Check authentication credentials'})
     }
     const token = await user.generateAuthToken()
-    res.send({ user, token })
+    const name = user.name 
+    const userEmail = user.email
+    const entries = user.entries
+
+    res.send({ name, userEmail, entries, token, message:"login successful" })
     } 
     catch (error) {
     res.status(400).send(error)
