@@ -30,5 +30,24 @@ const unsplash = new Unsplash({
         console.log(err)
     }) 
   })
+  router.route('/unsplash_collection_photo').get((req, res)=>{
+
+    unsplash.photos.getRandomPhoto({
+        width:1500, 
+        height:1000, 
+        orientation:'landscape',
+        collections:[5005482]
+    })
+    .then(res=> res.json())
+    .then(json => { 
+        res.json({
+            imgUrl : json.urls.custom,
+            author: json.user.name
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+    }) 
+  })
 
   module.exports = router

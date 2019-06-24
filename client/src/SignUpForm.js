@@ -12,7 +12,7 @@ class SignUpForm extends React.Component{
             user:'',
             message:''
         }
-        this.handleSignUp=this.handleSignUp.bind(this)
+        //this.handleSignUp=this.handleSignUp.bind(this)
         this.handleInputChange=this.handleInputChange.bind(this)
         this.setLocalStorage=this.setLocalStorage.bind(this)
     }
@@ -22,7 +22,7 @@ class SignUpForm extends React.Component{
         localStorage.set(`${localStorageKey}`, value)        
     }
 
-    handleSignUp = async (event) => {
+    /*handleSignUp = async (event) => {
         event.preventDefault()
         try{
             let res = axios({
@@ -55,7 +55,7 @@ class SignUpForm extends React.Component{
         catch(error){
             console.log(error)
         }
-    }
+    }*/
     
     handleInputChange(event){
         const{name, value} = event.target
@@ -68,11 +68,11 @@ class SignUpForm extends React.Component{
     render(){
         return(
             <div>
-                <form onSubmit={this.handleSignUp}>
+                <form onSubmit={(event)=>{this.props.handleSignUp(event, this.state.name, this.state.email, this.state.password)}}>
                     <input className="form-textbox" type="name" value={this.state.name} name="name" id="name" placeholder="first name" onChange={this.handleInputChange}/>
                     <input className="form-textbox" type="email" value={this.state.email} name="email" id="email" placeholder="email address" onChange={this.handleInputChange}/>
                     <input className="form-textbox" type="password" value={this.state.password} name="password" id="password" placeholder="password" onChange={this.handleInputChange}/>
-                    <button type='submit'>Sign Up</button>
+                    <button type='submit' style={{backgroundColor:'rgba(255, 136, 0, 1)'}}>Sign Up</button>
                 </form>
             </div>
         )

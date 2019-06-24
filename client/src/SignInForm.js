@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import localStorage from 'local-storage'
 
+import './SignInForm.css'
+
 class SignInForm extends React.Component{
     constructor(props){
         super()
@@ -12,7 +14,7 @@ class SignInForm extends React.Component{
             message:'',
             entries:[]
         }
-        this.handleSignIn=this.handleSignIn.bind(this)
+        //this.handleSignIn=this.handleSignIn.bind(this)
         this.handleInputChange=this.handleInputChange.bind(this)
         this.setLocalStorage=this.setLocalStorage.bind(this)
     }
@@ -22,7 +24,7 @@ class SignInForm extends React.Component{
         localStorage.set(`${localStorageKey}`, value)        
     }
 
-    handleSignIn = async (event) => {
+    /*handleSignIn = async (event) => {
         event.preventDefault()
         try{
             let res = axios({
@@ -52,13 +54,14 @@ class SignInForm extends React.Component{
                 ()=>{
                     this.setLocalStorage('user')
                     this.setLocalStorage('entries')
+                    window.location.reload()
                 }
             )
         }
         catch(error){
             console.log(error)
         }
-    }
+    }*/
     
     handleInputChange(event){
         const{name, value} = event.target
@@ -71,7 +74,7 @@ class SignInForm extends React.Component{
     render(){
         return(
             <div>
-                <form onSubmit={this.handleSignIn}>
+                <form onSubmit={(event)=>this.props.handleSignIn(event, this.state.email, this.state.password)}>
                     <input className="form-textbox" type="email" value={this.state.email} name="email" id="email" placeholder="email address" onChange={this.handleInputChange}/>
                     <input className="form-textbox" type="password" value={this.state.password} name="password" id="password" placeholder="password" onChange={this.handleInputChange}/>
                     <button type='submit'>Sign In</button>

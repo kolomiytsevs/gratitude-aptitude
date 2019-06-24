@@ -5,9 +5,9 @@ import Greeting from './Greeting'
 import Time from './Time'
 import TextInput from './TextInput'
 
-const Body = () => (
+const Body = (props) => (
     <div className='body'>
-    <Greeting />
+    <Greeting name={props.name}/>
     <Time />
     <TextInput />
     </div>

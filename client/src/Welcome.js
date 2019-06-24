@@ -1,12 +1,15 @@
 import React from 'react'
+import SignUp from'./SignUp'
+import SignIn from './SignIn'
+import './Welcome.css'
 
-const Welcome = () => (
-    <div>
-        <div>
-
+const Welcome = (props) => (
+    <div className='welcome-container'>
+        <div className='signin-container'>
+            <SignIn handleSignIn={props.handleSignIn}/>
         </div>
-        <div>
-            
+        <div className='signup-container'>
+            <SignUp handleSignUp={props.handleSignUp} /> 
         </div>
     </div>
 )

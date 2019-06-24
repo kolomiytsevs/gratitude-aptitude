@@ -1,0 +1,30 @@
+form{
+    display:flex;
+    flex-direction: column;
+    padding:10%;
+    height:100%;
+}
+input{
+    margin:10px 0px;
+    padding:7px;
+    border-radius: 5px;
+    border:none;
+    outline:none;
+}
+input::placeholder{
+    color:lightgray;
+}
+
+input:focus{
+    border:none;
+}
+button{
+    border-radius:7px;
+    border:none;
+    padding:10px;
+    cursor: pointer;
+    background-color: rgb(0, 225, 255);
+    color:white;
+    font-size:16px;
+    font-weight: 500;
+}

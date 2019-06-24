@@ -1,9 +1,11 @@
 import React from 'react'
 import './Greeting.css'
+import Time from './modules/DateTime'
 
-const Greeting = () =>(
+const Greeting = (props) =>(
+    
     <div className='greeting'>
-        <h1>Good Morning, Sasha.</h1>
+        <h1>Good {Time.getTimeOfDay()}, {props.name}.</h1>
     </div>
 )
 
