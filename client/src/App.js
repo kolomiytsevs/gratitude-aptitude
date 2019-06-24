@@ -62,9 +62,11 @@ class App extends React.Component {
   checkForUserData(){
     let user = localStorage.get('user')
     let entries = localStorage.get('entries')
+    let token = localStorage.get('token')
     if(user!==undefined){
       this.setState({
-        user
+        user,
+        token
       })
     }
     if(entries !== undefined){
@@ -168,7 +170,7 @@ handleSignUp = async (event, Name, Email, password) => {
     return (
       <React.Suspense fallback={<Spinner />}>
       <div className="App">
-        {isLoggedIn? <AuthenticatedView name={this.state.user.name}/>: <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
+        {isLoggedIn? <AuthenticatedView name={this.state.user.name} token={this.state.token} email={this.state.user.email}/>: <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
         
         <Background backgroundUrl={this.state.backgorundImgUrl} imgAuthor={this.state.imgAuthor} />
       </div>

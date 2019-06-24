@@ -9,7 +9,7 @@ const Body = (props) => (
     <div className='body'>
     <Greeting name={props.name}/>
     <Time />
-    <TextInput />
+    <TextInput token={props.token} name={props.name} email={props.email}/>
     </div>
 )
 
