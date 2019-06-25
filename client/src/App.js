@@ -106,6 +106,7 @@ class App extends React.Component {
                email: userEmail,
                token 
             },
+            token,
             entries,
             message
         },
