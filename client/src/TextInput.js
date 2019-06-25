@@ -52,6 +52,7 @@ handleSubmit = async (event) =>{
             message,
             [name]:''
         })
+        this.props.getDiaryEntries()
     }
     catch(error){
         console.log(error)

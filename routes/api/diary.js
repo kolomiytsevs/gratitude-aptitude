@@ -6,7 +6,7 @@ const checkAuth = require('../../middleware/auth')
 
 router.post("/new_entry", checkAuth, DiaryController.diary_create_entry) 
 
-router.get("/get_entries", checkAuth, DiaryController.diary_get_entries) 
+router.post("/get_entries", checkAuth, DiaryController.diary_get_entries) 
 
 router.post("/delete_field/:fieldId", checkAuth, DiaryController.diary_delete_field) 
 

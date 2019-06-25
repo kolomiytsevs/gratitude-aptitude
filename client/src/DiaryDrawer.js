@@ -11,10 +11,10 @@ const DiaryDrawer = (props) =>
     classNames="menu-slide"
     unmountOnExit
     >
-        <div className='wrapper'>
+        <div className='wrapper' onClick={props.getDiaryEntries}>
             <div className='map-grid'>
                 {props.entries.map(day => 
-                <DailyEntry date={day.entryDate} submittedFields={day.submittedFields}/>
+                <DailyEntry email={props.email} date={day.entryDate} token={props.token} submittedFields={day.submittedFields} key={day.uid}/>
                 )}
             </div>
         </div>

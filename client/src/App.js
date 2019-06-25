@@ -30,6 +30,7 @@ class App extends React.Component {
     this.isLoggedIn = this.isLoggedIn.bind(this)
     this.checkForUserData = this.checkForUserData.bind(this)
     this.toggleDiaryDrawer = this.toggleDiaryDrawer.bind(this)
+    this.getDiaryEntries = this.getDiaryEntries.bind(this)
   } 
 
   setLocalStorage(localStorageKey){
@@ -77,12 +78,18 @@ class App extends React.Component {
       })
     }
   }
-  
-  componentDidMount(){
+
+  componentWillMount(){
     this.getBackgroundImg()
     this.isLoggedIn()
     this.checkForUserData()
+
   }
+  
+  componentDidMount(){
+    this.getDiaryEntries()
+  }
+  
 
   handleSignIn = async (event, email, password) => {
     event.preventDefault()
@@ -167,6 +174,32 @@ handleSignUp = async (event, Name, Email, password) => {
   }
 }
 
+getDiaryEntries = async () =>{
+  const Token= this.state.token
+  const Email = this.state.user.email
+    try{
+        let res = axios({
+            method:'post',
+            url:'http://localhost:5000/api/diary/get_entries',
+            headers: {'Authorization': "Bearer "+Token},
+            data: {
+                email:Email
+            }
+        })
+        
+        let {data} = await res
+        //console.log(data)
+        let {message} = data
+        this.setState({
+            message,
+            entries:data
+        })
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 toggleDiaryDrawer(){
   this.setState((prevState)=>{
     return {diaryDrawerOpen: !prevState.diaryDrawerOpen}
@@ -187,6 +220,7 @@ toggleDiaryDrawer(){
           toggleDiaryDrawer={this.toggleDiaryDrawer}
           diaryDrawerOpen={this.state.diaryDrawerOpen}
           entries={this.state.entries}
+          getDiaryEntries={this.getDiaryEntries}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
