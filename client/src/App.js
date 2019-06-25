@@ -21,13 +21,15 @@ class App extends React.Component {
       user:{},
       message:'',
       entries:[],
-      token:null
+      token:null,
+      diaryDrawerOpen:false
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
     this.isLoggedIn = this.isLoggedIn.bind(this)
     this.checkForUserData = this.checkForUserData.bind(this)
+    this.toggleDiaryDrawer = this.toggleDiaryDrawer.bind(this)
   } 
 
   setLocalStorage(localStorageKey){
@@ -165,13 +167,29 @@ handleSignUp = async (event, Name, Email, password) => {
   }
 }
 
+toggleDiaryDrawer(){
+  this.setState((prevState)=>{
+    return {diaryDrawerOpen: !prevState.diaryDrawerOpen}
+  })
+}
+
 
   render(){
     const isLoggedIn = this.state.isLoggedIn
     return (
       <React.Suspense fallback={<Spinner />}>
       <div className="App">
-        {isLoggedIn? <AuthenticatedView name={this.state.user.name} token={this.state.token} email={this.state.user.email}/>: <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
+        {isLoggedIn? 
+          <AuthenticatedView 
+          name={this.state.user.name} 
+          token={this.state.token} 
+          email={this.state.user.email}
+          toggleDiaryDrawer={this.toggleDiaryDrawer}
+          diaryDrawerOpen={this.state.diaryDrawerOpen}
+          entries={this.state.entries}
+          />
+          : 
+          <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
         
         <Background backgroundUrl={this.state.backgorundImgUrl} imgAuthor={this.state.imgAuthor} />
       </div>

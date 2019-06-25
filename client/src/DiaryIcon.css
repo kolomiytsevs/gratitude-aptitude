@@ -1,0 +1,34 @@
+.diary-icon{
+    position:fixed;
+    top:0;
+    left:0;
+    margin:20px;
+    cursor: pointer;
+    
+    
+}
+.diary-icon svg{
+    width:30px;
+    height:30px;
+    fill: rgb(255, 255, 255);
+    transition: all 0.5s ease-out;
+    
+}
+.color-diary-icon{
+    position:fixed;
+    top:0;
+    left:0;
+    margin:20px;
+    cursor: pointer;
+    z-index: 1000;
+    
+}
+.color-diary-icon svg{
+    width:30px;
+    height:30px;
+    fill: rgb(155, 233, 233);
+    transition: all 0.5s ease-out;
+    
+    background-color: transparent;
+
+}

@@ -1,0 +1,13 @@
+.daily-container{
+    border:1px solid lightgrey;
+    border-radius: 3px;
+    padding:10px;
+    margin:5px;
+    margin-top:20px;
+}
+.daily-container h3{
+    margin:5px;
+    font-size:15px;
+    font-weight:400;
+    font-style:italic;
+}
