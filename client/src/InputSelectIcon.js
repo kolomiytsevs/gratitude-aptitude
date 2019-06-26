@@ -8,7 +8,7 @@ const InputSelectIcon = (props) => (
             {props.icon}
 
         </div>
-        <p>{props.field}</p>
+        <h6>{props.field}</h6>
     </div>
 )
 

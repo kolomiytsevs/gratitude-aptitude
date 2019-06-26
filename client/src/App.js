@@ -6,6 +6,8 @@ import localStorage from 'local-storage'
 import Background from './Background'
 import Spinner from './Spinner'
 import Auth from './modules/Auth'
+import Time from './modules/DateTime'
+
 //import Body from './Body'
 //import SignIn from './SignIn' 
 const AuthenticatedView = React.lazy(()=> import('./Body'))
@@ -22,7 +24,8 @@ class App extends React.Component {
       message:'',
       entries:[],
       token:null,
-      diaryDrawerOpen:false
+      diaryDrawerOpen:false,
+      backgroundLoaded:0
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -31,6 +34,7 @@ class App extends React.Component {
     this.checkForUserData = this.checkForUserData.bind(this)
     this.toggleDiaryDrawer = this.toggleDiaryDrawer.bind(this)
     this.getDiaryEntries = this.getDiaryEntries.bind(this)
+    this.shouldBackgroundUpdate = this.shouldBackgroundUpdate.bind(this)
   } 
 
   setLocalStorage(localStorageKey){
@@ -39,15 +43,28 @@ class App extends React.Component {
 }
 
   getBackgroundImg = async () =>{
-    let res = await axios.get('/api/unsplash/unsplash_collection_photo')
+    let res = await axios.get('http://localhost:5000/api/unsplash/unsplash_collection_photo')
     let {data}  = res
-
+    let backgroundLoaded = Time.reverseDate()
     this.setState({
       backgorundImgUrl : data.imgUrl,
-      imgAuthor : data.author
-    })
+      imgAuthor : data.author,
+      backgroundLoaded
+    },
+      ()=>{
+        this.setLocalStorage('backgorundImgUrl')
+        this.setLocalStorage('backgroundLoaded')
+        this.setLocalStorage('imgAuthor')
+      }
+    )
   }
 
+  shouldBackgroundUpdate(){
+    let today = Time.reverseDate()
+    if(this.state.backgroundLoaded!==today){
+      this.getBackgroundImg()
+    }
+  }
   
   isLoggedIn(){
     if(Auth.isUserAuthenticated()===true && !Auth.isTokenExpired()){
@@ -66,10 +83,17 @@ class App extends React.Component {
     let user = localStorage.get('user')
     let entries = localStorage.get('entries')
     let token = localStorage.get('token')
+    let backgorundImgUrl = localStorage.get('backgorundImgUrl')
+    let backgroundLoaded = localStorage.get('backgroundLoaded')
+    let imgAuthor = localStorage.get('imgAuthor')
     if(user!==undefined){
       this.setState({
         user,
-        token
+        token,
+        backgorundImgUrl,
+        backgroundLoaded,
+        imgAuthor
+
       })
     }
     if(entries !== undefined){
@@ -80,14 +104,19 @@ class App extends React.Component {
   }
 
   componentWillMount(){
-    this.getBackgroundImg()
-    this.isLoggedIn()
     this.checkForUserData()
-
+    this.isLoggedIn()
+    
   }
   
   componentDidMount(){
-    this.getDiaryEntries()
+    if(this.state.user!==null){
+      if(this.state.user.length<1){
+        
+        this.getDiaryEntries()      
+      }
+    }
+    this.shouldBackgroundUpdate()
   }
   
 
@@ -160,7 +189,9 @@ handleSignUp = async (event, Name, Email, password) => {
              email,
              token 
           },
-          message
+          token,
+          message,
+          entries:[]
       },
           ()=>{
             this.setLocalStorage('user')
@@ -193,7 +224,11 @@ getDiaryEntries = async () =>{
         this.setState({
             message,
             entries:data
-        })
+        },
+          ()=>{
+            this.setLocalStorage('entries')
+          }
+        )
     }
     catch(error){
         console.log(error)
@@ -221,6 +256,7 @@ toggleDiaryDrawer(){
           diaryDrawerOpen={this.state.diaryDrawerOpen}
           entries={this.state.entries}
           getDiaryEntries={this.getDiaryEntries}
+          authorName={this.state.imgAuthor}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}

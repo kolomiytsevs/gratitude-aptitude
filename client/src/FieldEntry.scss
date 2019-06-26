@@ -3,22 +3,25 @@
 .field-entry > p{
     margin:0px;
     line-height:26px !important;
-    font-family:'mali'
+    font-family:'mali';
+    font-size:15px;
     
 }
 .field-entry > p strong{
     line-height:26px !important;
     font-family:'mali';
     font-weight: 700;
-    
+    font-size:15px;
 }
 .field-entry{
     margin:0px;
+    font-size:15px;
 }
 
 .field-entry:hover{
     margin:0px;
     background-color: rgba(255, 255, 255, 0.5);
+    font-size:15px;
     svg {
         fill:rgb(148, 148, 148);
         cursor: pointer;
@@ -40,4 +43,29 @@
 
 .pencil{
     margin-left:20px !important;
+}
+
+#editValue{
+    border:none;
+    background:transparent;
+    width:79%;
+    height:26px;
+    padding:0px;
+    max-height: 100px;
+    max-width:100%;
+    padding-left:5px;
+    overflow-y:auto;
+    font-family: 'mali';
+    font-size:15px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.field-entry label{
+    font-family:'mali';
+    font-weight:700;
+    padding-top:2px;
+}
+
+#editValue:focus{
+    outline:none;
 }

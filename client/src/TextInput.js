@@ -71,31 +71,31 @@ handleInputChange(event){
         return(
             <div className='text-input'>
                 <div className={this.state.selectedField==='gratitude'? 'active-field':'hidden-field'}>
-                <form onSubmit={this.handleSubmit} autocomplete="off">
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                 <input type='text' id='gratitude' name='gratitude' onChange={this.handleInputChange} value={this.state.gratitude} placeholder='something general you are grateful for'></input>
                 <br></br>
-                <label for='gratitude'>gratitude</label>
+                <label htmlFor='gratitude'>gratitude</label>
                 </form>
                 </div>
                 <div className={this.state.selectedField==='intention'? 'active-field':'hidden-field'}>
-                <form onSubmit={this.handleSubmit} autocomplete="off">
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                 <input type='text'  id='intention' name='intention' onChange={this.handleInputChange} value={this.state.intention} placeholder='something you want to do which is wellbeing oriented'></input>
                 <br></br>
-                <label for='intention'>intention</label>
+                <label htmlFor='intention'>intention</label>
                 </form>
                 </div>
                 <div className={this.state.selectedField==='highlight'? 'active-field':'hidden-field'}>
-                <form onSubmit={this.handleSubmit} autocomplete="off">
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                 <input type='text'  id='highlight' name='highlight' onChange={this.handleInputChange} value={this.state.highlight} placeholder='something you want to do which is wellbeing oriented'></input>
                 <br></br>
-                <label for='highlight'>highlight</label>
+                <label htmlFor='highlight'>highlight</label>
                 </form>
                 </div>
                 <div className={this.state.selectedField==='love'? 'active-field':'hidden-field'}>
-                <form onSubmit={this.handleSubmit} autocomplete="off">
+                <form onSubmit={this.handleSubmit} autoComplete="off">
                 <input type='text'  id='love' name='love' onChange={this.handleInputChange} value={this.state.love} placeholder='something you want to do which is wellbeing oriented'></input>
                 <br></br>
-                <label for='love'>self love</label>
+                <label htmlFor='love'>self love</label>
                 </form>
                 </div>
                 {/*<InputField handleInputChange={this.handleInputChange} selectedField={this.state.selectedField} label={this.state.selectedField} value={this.state[this.state.selectedField]}/>*/}

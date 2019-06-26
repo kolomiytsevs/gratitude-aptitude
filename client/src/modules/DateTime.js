@@ -7,6 +7,10 @@ class Time {
         
     }
 
+static reverseDate(){    
+    return DateTime.local().toFormat(`yyMMdd`)
+}
+
     static getTimeOfDay(){
         let hour = Number(DateTime.local().toFormat(`HH`))
         if(hour >= 5 && hour<12){

@@ -11,11 +11,14 @@ const DiaryDrawer = (props) =>
     classNames="menu-slide"
     unmountOnExit
     >
-        <div className='wrapper' onClick={props.getDiaryEntries}>
+        <div className='wrapper' >
             <div className='map-grid'>
-                {props.entries.map(day => 
-                <DailyEntry email={props.email} date={day.entryDate} token={props.token} submittedFields={day.submittedFields} key={day.uid}/>
-                )}
+                {props.entries && props.entries.length>0?
+                props.entries.map(day => 
+                    <DailyEntry email={props.email} getDiaryEntries={props.getDiaryEntries} date={day.entryDate} token={props.token} submittedFields={day.submittedFields} key={day.uid}/>)
+                :
+                <p>No Entries Yet</p>
+                }
             </div>
         </div>
 </CSSTransition>

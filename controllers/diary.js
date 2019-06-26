@@ -155,6 +155,7 @@ User.findOne({ email: req.body.email })
           res.status(201).json({
             message: "field deleted"
           }) 
+          next()
         })
         .catch(err => {
           console.log(err) 
@@ -162,6 +163,8 @@ User.findOne({ email: req.body.email })
             error: err
           }) 
         })
+      
+        
       }
   } 
 })
@@ -171,6 +174,103 @@ User.findOne({ email: req.body.email })
     error: err
   }) 
 })
+
+User.findOne({ email: req.body.email })
+.exec()
+.then(user => {
+  
+  if (user.length < 1) {
+    return res.status(401).json({
+      message: "user not found"
+    }) 
+  }
+  else{
+      if(user.entries.length < 1){
+          res.json({
+            message:"no entries to delete"
+          })
+      }else{
+        let ar
+        user.entries.map((day, index)=> day.submittedFields.length<1? ar=day.uid:'massive')
+        console.log(ar)
+        if(ar!==undefined){
+        User.updateOne(
+          {email:req.body.email}, 
+          {$pull: 
+            {'entries':{uid:ar}}
+          })
+          .then(result => {
+          console.log(result)  
+          res.status(201).json({
+            message: "field deleted"
+          }) 
+        })
+        .catch(err => {
+          console.log(err) 
+          res.status(500).json({
+            error: err
+          }) 
+        })
+      }
+    }
+  } 
+})
+.catch(err => {
+  console.log(err) 
+  res.status(500).json({
+    error: err
+  }) 
+})
+
+}
+exports.check_empty_fields = (req, res, next) => {
+User.findOne({ email: req.body.email })
+.exec()
+.then(user => {
+  
+  if (user.length < 1) {
+    return res.status(401).json({
+      message: "user not found"
+    }) 
+  }
+  else{
+      if(user.entries.length < 1){
+          res.json({
+            message:"no entries to delete"
+          })
+      }else{
+        let ar
+        user.entries.map((day, index)=> day.submittedFields.length<1? ar=day.uid:'massive')
+        console.log(ar)
+        if(ar!==undefined){
+        User.updateOne(
+          {email:req.body.email}, 
+          {$pull: 
+            {'entries':{uid:ar}}
+          })
+          .then(result => {
+          console.log(result)  
+          res.status(201).json({
+            message: "empty field deleted"
+          }) 
+        })
+        .catch(err => {
+          console.log(err) 
+          res.status(500).json({
+            error: err
+          }) 
+        })
+      }
+    }
+  } 
+})
+.catch(err => {
+  console.log(err) 
+  res.status(500).json({
+    error: err
+  }) 
+})
+
 }
 
 exports.diary_update_field = (req, res, next) => {

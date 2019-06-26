@@ -12,4 +12,6 @@ router.post("/delete_field/:fieldId", checkAuth, DiaryController.diary_delete_fi
 
 router.post("/update_field/:fieldId", checkAuth, DiaryController.diary_update_field) 
 
+router.post("/check_empty_fields", checkAuth, DiaryController.check_empty_fields) 
+
 module.exports = router 
