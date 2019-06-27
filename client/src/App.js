@@ -25,7 +25,9 @@ class App extends React.Component {
       entries:[],
       token:null,
       diaryDrawerOpen:false,
-      backgroundLoaded:0
+      backgroundLoaded:0,
+      authorProfile:'',
+      imagePage:''
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -49,12 +51,16 @@ class App extends React.Component {
     this.setState({
       backgorundImgUrl : data.imgUrl,
       imgAuthor : data.author,
-      backgroundLoaded
+      backgroundLoaded,
+      authorProfile: data.authorProfile,
+      imagePage: data.imagePage
     },
       ()=>{
         this.setLocalStorage('backgorundImgUrl')
         this.setLocalStorage('backgroundLoaded')
         this.setLocalStorage('imgAuthor')
+        this.setLocalStorage('authorProfile')
+        this.setLocalStorage('imagePage')
       }
     )
   }
@@ -86,13 +92,17 @@ class App extends React.Component {
     let backgorundImgUrl = localStorage.get('backgorundImgUrl')
     let backgroundLoaded = localStorage.get('backgroundLoaded')
     let imgAuthor = localStorage.get('imgAuthor')
+    let authorProfile = localStorage.get('authorProfile')
+    let imagePage = localStorage.get('imagePage')
     if(user!==undefined){
       this.setState({
         user,
         token,
         backgorundImgUrl,
         backgroundLoaded,
-        imgAuthor
+        imgAuthor,
+        authorProfile,
+        imagePage
 
       })
     }
@@ -257,6 +267,8 @@ toggleDiaryDrawer(){
           entries={this.state.entries}
           getDiaryEntries={this.getDiaryEntries}
           authorName={this.state.imgAuthor}
+          authorProfile={this.state.authorProfile}
+          imagePage={this.state.imagePage}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}

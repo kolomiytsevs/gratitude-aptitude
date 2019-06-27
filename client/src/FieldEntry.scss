@@ -48,7 +48,7 @@
 #editValue{
     border:none;
     background:transparent;
-    width:79%;
+    width:78%;
     height:26px;
     padding:0px;
     max-height: 100px;
@@ -58,14 +58,23 @@
     font-family: 'mali';
     font-size:15px;
     background-color: rgba(255, 255, 255, 0.5);
+    margin:0px;
 }
 
 .field-entry label{
     font-family:'mali';
     font-weight:700;
-    padding-top:2px;
+    
+    width:auto;
+    line-height: 26px;
 }
 
 #editValue:focus{
     outline:none;
+}
+
+.field-entry form{
+    padding:0px;
+    display: flex;
+    flex-direction: row !important;
 }

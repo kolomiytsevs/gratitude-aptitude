@@ -23,7 +23,9 @@ const unsplash = new Unsplash({
     .then(json => { 
         res.json({
             imgUrl : json.urls.custom,
-            author: json.user.name
+            author: json.user.name,
+            authorProfile: json.user.links.html,
+            imagePage: json.links.html
         })
     })
     .catch(err =>{
@@ -39,10 +41,13 @@ const unsplash = new Unsplash({
         collections:[5005482]
     })
     .then(res=> res.json())
-    .then(json => { 
+    .then(json => {
+        console.log(json) 
         res.json({
             imgUrl : json.urls.custom,
-            author: json.user.name
+            author: json.user.name,
+            authorProfile: json.user.links.html,
+            imagePage: json.links.html
         })
     })
     .catch(err =>{
