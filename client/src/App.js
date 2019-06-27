@@ -27,7 +27,8 @@ class App extends React.Component {
       diaryDrawerOpen:false,
       backgroundLoaded:0,
       authorProfile:'',
-      imagePage:''
+      imagePage:'',
+      name:''
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -96,6 +97,7 @@ class App extends React.Component {
     let imgAuthor = localStorage.get('imgAuthor')
     let authorProfile = localStorage.get('authorProfile')
     let imagePage = localStorage.get('imagePage')
+    let name = localStorage.get('name')
     if(user!==undefined){
       this.setState({
         user,
@@ -164,6 +166,7 @@ class App extends React.Component {
                email: userEmail,
                token 
             },
+            name,
             token,
             entries,
             message
@@ -172,6 +175,7 @@ class App extends React.Component {
               if(token!==undefined){
                 this.setLocalStorage('user')
                 this.setLocalStorage('entries')
+                this.setLocalStorage('name')
                 Auth.authenticateUser(token)
                 this.isLoggedIn()
               }
@@ -236,12 +240,14 @@ handleSignUp = async (event, Name, Email, password) => {
              email,
              token 
           },
+          name,
           token,
           message,
           entries:[]
       },
           ()=>{
             this.setLocalStorage('user')
+            this.setLocalStorage('name')
             Auth.authenticateUser(token)
             this.isLoggedIn()
           }
@@ -299,7 +305,7 @@ toggleDiaryDrawer(){
       <div className="App">
         {isLoggedIn? 
           <AuthenticatedView 
-          name={this.state.user.name} 
+          name={this.state.name} 
           token={this.state.token} 
           email={this.state.user.email}
           toggleDiaryDrawer={this.toggleDiaryDrawer}

@@ -36,7 +36,6 @@ class Greeting extends React.Component{
     
     handleEditSubmit = async (event) => {
         event.preventDefault()
-        console.log(this.props.uid, this.props.email, this.props.token, this.props.dateId)
             try{
                 let res = axios({
                     method:'post',
@@ -70,7 +69,7 @@ class Greeting extends React.Component{
                 <h1>Good {Time.getTimeOfDay()}, 
                     {editName? 
                         <form onSubmit={this.handleEditSubmit} autoComplete="off">
-                            <input type='text' id='editNameValue' name='editValue' onChange={this.handleInputChange} value={this.state.editNameValue} />
+                            <input type='text' id='editNameValue' name='editNameValue' onChange={this.handleInputChange} value={this.state.editNameValue} />
                         </form>
                     :
                         <span> {this.props.name}.</span>
