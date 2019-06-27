@@ -36,7 +36,7 @@ class FieldEntry extends React.Component{
                 console.log('DELETEING EMPTY FIELDS')
                 let res = axios({
                     method:'post',
-                    url:`http://localhost:5000/api/diary/check_empty_fields`,
+                    url:`http://tranquil-vine-245010.appspot.com/api/diary/check_empty_fields`,
                     headers: {'Authorization': "Bearer "+this.props.token},
                     data: {
                         email:this.props.email
@@ -61,7 +61,7 @@ class FieldEntry extends React.Component{
             try{
                 let res = axios({
                     method:'post',
-                    url:`http://localhost:5000/api/diary/delete_field/${this.props.uid}`,
+                    url:`http://tranquil-vine-245010.appspot.com/api/diary/delete_field/${this.props.uid}`,
                     headers: {'Authorization': "Bearer "+this.props.token},
                     data: {
                         email:this.props.email
@@ -93,7 +93,7 @@ class FieldEntry extends React.Component{
             try{
                 let res = axios({
                     method:'post',
-                    url:`http://localhost:5000/api/diary/update_field/${this.props.uid}`,
+                    url:`http://tranquil-vine-245010.appspot.com/api/diary/update_field/${this.props.uid}`,
                     headers: {'Authorization': "Bearer "+this.props.token},
                     data: {
                         email:this.props.email,

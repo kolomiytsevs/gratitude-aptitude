@@ -45,7 +45,7 @@ class App extends React.Component {
 }
 
   getBackgroundImg = async () =>{
-    let res = await axios.get('http://localhost:5000/api/unsplash/unsplash_collection_photo')
+    let res = await axios.get('http://tranquil-vine-245010.appspot.com/api/unsplash/unsplash_collection_photo')
     let {data}  = res
     let backgroundLoaded = Time.reverseDate()
     this.setState({
@@ -135,7 +135,7 @@ class App extends React.Component {
     try{
         let res = axios({
             method:'post',
-            url:'http://localhost:5000/api/user/login',
+            url:'http://tranquil-vine-245010.appspot.com/api/user/login',
             data: {
                 email: email,
                 password: password
@@ -179,7 +179,7 @@ handleSignUp = async (event, Name, Email, password) => {
   try{
       let res = axios({
           method:'post',
-          url:'http://localhost:5000/api/user/signup',
+          url:'http://tranquil-vine-245010.appspot.com/api/user/signup',
           data: {
               name: Name,
               email: Email,
@@ -221,7 +221,7 @@ getDiaryEntries = async () =>{
     try{
         let res = axios({
             method:'post',
-            url:'http://localhost:5000/api/diary/get_entries',
+            url:'http://tranquil-vine-245010.appspot.com/api/diary/get_entries',
             headers: {'Authorization': "Bearer "+Token},
             data: {
                 email:Email
