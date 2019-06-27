@@ -1,7 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import './Greeting.css'
+import onClickOutside from 'react-onclickoutside'
+
+import './Greeting.scss'
 import Time from './modules/DateTime'
+import {Pencil} from './svgIcons'
 
 class Greeting extends React.Component{
     constructor(props){
@@ -51,7 +54,7 @@ class Greeting extends React.Component{
                 let {message, updatedName} = data
                 this.setState({
                     message,
-                    edit:false
+                    editName:false
                 })
                this.props.updateDisplayName(updatedName)
                 
@@ -62,17 +65,25 @@ class Greeting extends React.Component{
         
     }
 
+    handleClickOutside = evt =>{
+        this.setState({
+            editName:false,
+            editNameValue:this.props.name
+        })
+    }
+
     render(){
         let {editName} = this.state
         return(
             <div className='greeting'>
                 <h1>Good {Time.getTimeOfDay()}, 
                     {editName? 
+                        
                         <form onSubmit={this.handleEditSubmit} autoComplete="off">
                             <input type='text' id='editNameValue' name='editNameValue' onChange={this.handleInputChange} value={this.state.editNameValue} />
                         </form>
                     :
-                        <span> {this.props.name}.</span>
+                        <span className='name-span'> {this.props.name}.<span className='name-pencil' onClick={this.handleEditClick}><Pencil /></span></span>
                     }
                 </h1>
             </div>
@@ -82,4 +93,4 @@ class Greeting extends React.Component{
     
 
 
-export default Greeting
+export default onClickOutside(Greeting)

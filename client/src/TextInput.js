@@ -36,7 +36,7 @@ handleSubmit = async (event) =>{
     try{
         let res = axios({
             method:'post',
-            url:'http://localhost:5000/api/diary/new_entry',
+            url:'http://tranquil-vine-245010.appspot.com/api/diary/new_entry',
             headers: {'Authorization': "Bearer "+this.props.token},
             data: {
                 email:this.props.email,

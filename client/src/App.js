@@ -106,7 +106,8 @@ class App extends React.Component {
         backgroundLoaded,
         imgAuthor,
         authorProfile,
-        imagePage
+        imagePage,
+        name
 
       })
     }
