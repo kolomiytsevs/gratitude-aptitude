@@ -4,17 +4,25 @@
     font-size:16px;
     margin-top:auto;
     margin-bottom: auto;
+    cursor: pointer;
     
-    
+}
+.google-nav .break{
+    text-decoration: none;
+    color:white;
+    font-size:16px;
+    margin-top:auto;
+    margin-bottom: auto;
+    cursor: default;    
 }
 .google-nav{
     position: fixed;
     top:0;
     right:0;
     margin-top:15px;
-    background-color:rgba(0, 0, 0, 0.1);
+    background-color:rgba(0, 0, 0, 0.15);
     height:40px;
-    width:100px;
+    width:185px;
     border-radius: 20px 0px 0px 20px;
     text-align: center;
     display:flex;

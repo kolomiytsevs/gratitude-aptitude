@@ -26,7 +26,7 @@ const Body = (props) => (
     <Time />
     <TextInput token={props.token} name={props.name} email={props.email} getDiaryEntries={props.getDiaryEntries}/>
     <AuthorDetails authorName={props.authorName} authorProfile={props.authorProfile} imagePage={props.imagePage}/>
-    <GoogleNav />
+    <GoogleNav handleSignOut={props.handleSignOut}/>
     </div>
 )
 

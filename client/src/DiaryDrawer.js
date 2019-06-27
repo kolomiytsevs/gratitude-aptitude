@@ -3,35 +3,53 @@ import {CSSTransition} from 'react-transition-group'
 import './DiaryDrawer.css'
 import DailyEntry from './DailyEntry';
 
-const DiaryDrawer = (props) =>
-<div>
-<CSSTransition
-    in={props.diaryDrawerOpen}
-    timeout={350}
-    classNames="menu-slide"
-    unmountOnExit
-    >
-        <div className='wrapper' >
-            <div className='map-grid'>
-                {props.entries && props.entries.length>0?
-                props.entries.map(day => 
-                    <DailyEntry email={props.email} getDiaryEntries={props.getDiaryEntries} date={day.entryDate} token={props.token} submittedFields={day.submittedFields} key={day.uid}/>)
-                :
-                <p>No Entries Yet</p>
-                }
+class DiaryDrawer extends React.Component{
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount(){
+        this.props.getDiaryEntries()
+    }
+
+    render(){
+        return(
+
+            <div>
+            <CSSTransition
+                in={this.props.diaryDrawerOpen}
+                timeout={350}
+                classNames="menu-slide"
+                unmountOnExit
+                >
+                    <div className='wrapper' >
+                        <div className='map-grid'>
+                            {this.props.entries && this.props.entries.length>0?
+                            this.props.entries.map(day => 
+                                <DailyEntry email={this.props.email} getDiaryEntries={this.props.getDiaryEntries} date={day.entryDate} token={this.props.token} submittedFields={day.submittedFields} key={day.uid}/>)
+                            :
+                            <p>No Entries Yet</p>
+                            }
+                        </div>
+                    </div>
+            </CSSTransition>
+            <CSSTransition
+                in={this.props.diaryDrawerOpen}
+                timeout={350}
+                classNames="fade"
+                unmountOnExit
+                >
+                    <div className="backdrop" onClick={this.props.toggleDiaryDrawer}></div>
+
+            </CSSTransition>
+
             </div>
-        </div>
-</CSSTransition>
-<CSSTransition
-    in={props.diaryDrawerOpen}
-    timeout={350}
-    classNames="fade"
-    unmountOnExit
-    >
-        <div className="backdrop" onClick={props.toggleDiaryDrawer}></div>
+        )
+    }
 
-</CSSTransition>
+} 
 
-</div>
+
+
 
 export default DiaryDrawer

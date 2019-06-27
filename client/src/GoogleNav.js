@@ -5,8 +5,8 @@ import onClickOutside from 'react-onclickoutside'
 
 
 class GoogleNav extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             googleNavOpen:false
         }
@@ -30,7 +30,9 @@ class GoogleNav extends React.Component{
 
     <div className='nav-wrap'>
     <div className='google-nav'>
-        <a className='gmail' href='https://mail.google.com'>Gmail</a>
+        <div className='gmail' onClick={this.props.handleSignOut}>Sign Out</div>
+        <div style={{marginLeft:'10px'}} className='break'>|</div>
+        <a className='gmail' href='https://mail.google.com' style={{marginLeft:'10px'}}>Gmail</a>
         <div className='google-products' onClick={this.handleGoogleNavClick}></div>
     </div>
     {this.state.googleNavOpen && <GoogleDropdown handleGoogleNavClick={this.handleGoogleNavClick} />}

@@ -21,6 +21,8 @@ class FieldEntry extends React.Component{
         this.deleteEmptyFields = this.deleteEmptyFields.bind(this)
     }
 
+
+
     handleInputChange(event){
         const{name, value} = event.target
         

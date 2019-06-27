@@ -37,6 +37,7 @@ class App extends React.Component {
     this.toggleDiaryDrawer = this.toggleDiaryDrawer.bind(this)
     this.getDiaryEntries = this.getDiaryEntries.bind(this)
     this.shouldBackgroundUpdate = this.shouldBackgroundUpdate.bind(this)
+    this.handleSignOut = this.handleSignOut.bind(this)
   } 
 
   setLocalStorage(localStorageKey){
@@ -172,6 +173,33 @@ class App extends React.Component {
         console.log(error)
     }
 }
+  handleSignOut = async (event) => {
+    event.preventDefault()
+    try{
+        let res = axios({
+            method:'post',
+            url:`http://tranquil-vine-245010.appspot.com/api/user/logoutall/`,
+            headers: {'Authorization': "Bearer "+this.state.token},
+            data: {
+            }
+        })
+        
+        let {data} = await res
+        console.log(data)
+        this.setState({
+          name:'',
+          user: {},
+          isLoggedIn:false,
+          token:'',
+          entries:[]
+        })
+      this.isLoggedIn()
+      localStorage.clear()
+    }
+    catch(error){
+        console.log(error)
+    }
+}
 
 handleSignUp = async (event, Name, Email, password) => {
   
@@ -242,6 +270,9 @@ getDiaryEntries = async () =>{
     }
     catch(error){
         console.log(error)
+        this.setState({
+          isLoggedIn:false
+        })
     }
 }
 
@@ -269,6 +300,7 @@ toggleDiaryDrawer(){
           authorName={this.state.imgAuthor}
           authorProfile={this.state.authorProfile}
           imagePage={this.state.imagePage}
+          handleSignOut={this.handleSignOut}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
