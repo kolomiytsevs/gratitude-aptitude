@@ -24,6 +24,8 @@ router.post("/logout", checkAuth, UserController.user_logout)
 
 router.post("/logoutall", checkAuth, UserController.user_logout_all) 
 
+router.post("/update_name", checkAuth, UserController.user_update_name) 
+
 
 
 

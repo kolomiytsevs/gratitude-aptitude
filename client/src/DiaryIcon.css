@@ -3,10 +3,15 @@
     top:0;
     left:0;
     margin:20px;
+    margin-top:15px;
     cursor: pointer;
     transform: translateX(0px);
     transition: all 0.25s ease-out;
-    
+    padding:10px;
+    border-radius: 50px;
+    background-color: rgba(0,0,0,0.3);
+    width:30px;
+    height:30px;
     
 }
 .diary-icon svg{
@@ -21,10 +26,12 @@
     top:0;
     left:0;
     margin:20px;
+    margin-top:15px;
     cursor: pointer;
     z-index: 1000;
     transform: translateX(420px);
     transition: all 0.25s ease-out;
+    padding:10px;
     
 }
 .color-diary-icon svg{

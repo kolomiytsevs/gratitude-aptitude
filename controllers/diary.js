@@ -10,6 +10,7 @@ exports.diary_create_entry = (req, res, next) => {
   const standardDate = DateTime.local().toFormat(`yyMMdd`)
   const entryDate = DateTime.local().toFormat(`dd/MM/yy`)
   const msDateNow = Date.now()
+  const fullDate = DateTime.local().toFormat(`d LLLL yyyy`)
   
   const submittedField = new SubmittedField({
       _id: new mongoose.Types.ObjectId(),
@@ -25,7 +26,7 @@ exports.diary_create_entry = (req, res, next) => {
       uid:uuidv1(),
       dateId: standardDate,
       date: msDateNow,
-      entryDate: entryDate,
+      entryDate: fullDate,
       submittedFields: [submittedField]
   }) 
 

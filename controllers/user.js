@@ -513,3 +513,13 @@ exports.user_logout_all = async (req, res, next) =>{
   }
 
 }
+
+exports.user_update_name = async (req, res, next) =>{
+  try {
+    req.user.name = req.body.name
+    await req.user.save()
+    res.json({message:'display name updated'})
+  } catch (error) {
+    res.status(500).send(error)
+    }
+}

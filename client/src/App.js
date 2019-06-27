@@ -118,6 +118,7 @@ class App extends React.Component {
     this.checkForUserData()
     this.isLoggedIn()
     
+    
   }
   
   componentDidMount(){
