@@ -38,6 +38,7 @@ class App extends React.Component {
     this.getDiaryEntries = this.getDiaryEntries.bind(this)
     this.shouldBackgroundUpdate = this.shouldBackgroundUpdate.bind(this)
     this.handleSignOut = this.handleSignOut.bind(this)
+    this.updateDisplayName = this.updateDisplayName.bind(this)
   } 
 
   setLocalStorage(localStorageKey){
@@ -131,6 +132,13 @@ class App extends React.Component {
     this.shouldBackgroundUpdate()
   }
   
+  updateDisplayName(name){
+    this.setState({
+      name
+    },
+    this.setLocalStorage('name')
+    )
+  }
 
   handleSignIn = async (event, email, password) => {
     event.preventDefault()
@@ -302,6 +310,7 @@ toggleDiaryDrawer(){
           authorProfile={this.state.authorProfile}
           imagePage={this.state.imagePage}
           handleSignOut={this.handleSignOut}
+          updateDisplayName={this.updateDisplayName}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}

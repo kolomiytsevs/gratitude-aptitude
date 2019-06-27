@@ -22,7 +22,7 @@ const Body = (props) => (
         getDiaryEntries={props.getDiaryEntries} 
         token={props.token}
     />        
-    <Greeting name={props.name}/>
+    <Greeting name={props.name} updateDisplayName={props.updateDisplayName}/>
     <Time />
     <TextInput token={props.token} name={props.name} email={props.email} getDiaryEntries={props.getDiaryEntries}/>
     <AuthorDetails authorName={props.authorName} authorProfile={props.authorProfile} imagePage={props.imagePage}/>
