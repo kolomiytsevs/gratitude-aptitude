@@ -13,6 +13,8 @@ import Time from './modules/DateTime'
 const AuthenticatedView = React.lazy(()=> import('./Body'))
 const UnauthenticatedView = React.lazy(()=> import('./Welcome'))
 
+const today = Time.reverseDate()
+
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -28,7 +30,10 @@ class App extends React.Component {
       backgroundLoaded:0,
       authorProfile:'',
       imagePage:'',
-      name:''
+      name:'',
+      quote:'', 
+      quoteSource:'',
+      quoteLoaded:''
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -40,12 +45,39 @@ class App extends React.Component {
     this.shouldBackgroundUpdate = this.shouldBackgroundUpdate.bind(this)
     this.handleSignOut = this.handleSignOut.bind(this)
     this.updateDisplayName = this.updateDisplayName.bind(this)
+    this.getRandomQuote = this.getRandomQuote.bind(this)
+    this.shouldQuoteUpdate = this.shouldQuoteUpdate.bind(this)
   } 
+
+  
 
   setLocalStorage(localStorageKey){
     const value = this.state[`${localStorageKey}`]
     localStorage.set(`${localStorageKey}`, value)        
-}
+  }
+
+  getRandomQuote = async () =>{
+    let res = await axios.get('http://tranquil-vine-245010.appspot.com/api/quotes/random_quote')
+    let {data} = res
+    let quoteLoaded = Time.reverseDate()
+    this.setState({
+      quote: data.quote,
+      quoteSource: data.source,
+      quoteLoaded: quoteLoaded
+    },
+      ()=>{
+        this.setLocalStorage('quote')
+        this.setLocalStorage('quoteSource')
+        this.setLocalStorage('quoteLoaded')
+      }
+    )
+  }
+
+  shouldQuoteUpdate(){
+    if(this.state.quoteLoaded!==today){
+      this.getRandomQuote()
+    }
+  }
 
   getBackgroundImg = async () =>{
     let res = await axios.get('http://tranquil-vine-245010.appspot.com/api/unsplash/unsplash_collection_photo')
@@ -69,7 +101,7 @@ class App extends React.Component {
   }
 
   shouldBackgroundUpdate(){
-    let today = Time.reverseDate()
+    
     if(this.state.backgroundLoaded!==today){
       this.getBackgroundImg()
     }
@@ -98,6 +130,9 @@ class App extends React.Component {
     let authorProfile = localStorage.get('authorProfile')
     let imagePage = localStorage.get('imagePage')
     let name = localStorage.get('name')
+    let quote = localStorage.get('quote')
+    let quoteLoaded = localStorage.get('quoteLoaded')
+    let quoteSource = localStorage.get('quoteSource')
     if(user!==undefined){
       this.setState({
         user,
@@ -107,7 +142,10 @@ class App extends React.Component {
         imgAuthor,
         authorProfile,
         imagePage,
-        name
+        name,
+        quote,
+        quoteSource,
+        quoteLoaded
 
       })
     }
@@ -133,6 +171,7 @@ class App extends React.Component {
       }
     }
     this.shouldBackgroundUpdate()
+    this.shouldQuoteUpdate()
   }
   
   updateDisplayName(name){
@@ -318,6 +357,8 @@ toggleDiaryDrawer(){
           imagePage={this.state.imagePage}
           handleSignOut={this.handleSignOut}
           updateDisplayName={this.updateDisplayName}
+          quote={this.state.quote}
+          quoteSource={this.state.quoteSource}
           />
           : 
           <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
