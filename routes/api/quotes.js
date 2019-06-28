@@ -5,4 +5,4 @@ const QuoteController = require('../../controllers/quotes')
 
 router.post("/new_quote", QuoteController.new_quote) 
 
-module.exports.router
+module.exports = router
