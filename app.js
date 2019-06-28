@@ -41,6 +41,7 @@ app.use((req, res, next)=>{
 app.use('/api/unsplash', require('./routes/api/unsplash'))
 app.use('/api/user', require('./routes/api/user'))
 app.use('/api/diary', require('./routes/api/diary'))
+app.use('/api/quotes', require('./routes/api/quotes'))
 
 let MONGO_URI=process.env.MONGO_URI_SECRET
 
