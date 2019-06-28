@@ -30,11 +30,18 @@
     top:-10px;
     left:10px;
     visibility: hidden;
-
+    
 }
 
 .name-pencil svg{
-    fill:rgb(255, 255, 255)
+    fill:rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius:20px;
+    background-color:rgba(0,0,0,0.1);
+    height:20px;
+    width:10px;
+    padding:5px;
+    
 }
 
 #editNameValue{
@@ -48,6 +55,8 @@
     border-bottom: solid 3px rgb(255, 255, 255);
     box-shadow: 0px 20px 40px -10px rgb(0, 0, 0);
     width:100%;
+    margin:0px;
+    padding:0px;
     padding-left:15px;
 }
 
@@ -58,6 +67,7 @@
 .greeting form{
     
     width:150px !important;
+    padding:0px;
     
 }
 

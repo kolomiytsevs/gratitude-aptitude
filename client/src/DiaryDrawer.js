@@ -28,7 +28,10 @@ class DiaryDrawer extends React.Component{
                             this.props.entries.map(day => 
                                 <DailyEntry email={this.props.email} getDiaryEntries={this.props.getDiaryEntries} date={day.entryDate} token={this.props.token} submittedFields={day.submittedFields} key={day.uid}/>)
                             :
-                            <p>No Entries Yet</p>
+                            <div>
+                                <h3 className='my-journal'>My Journal</h3>
+                                <p className='no-entries'>No Entries Yet</p>
+                            </div>
                             }
                         </div>
                     </div>
