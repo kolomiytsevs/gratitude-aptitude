@@ -6,10 +6,10 @@ import './Welcome.css'
 const Welcome = (props) => (
     <div className='welcome-container'>
         <div className='signin-container'>
-            <SignIn handleSignIn={props.handleSignIn}/>
+            <SignIn handleSignIn={props.handleSignIn} signInMessage={props.signInMessage}/>
         </div>
         <div className='signup-container'>
-            <SignUp handleSignUp={props.handleSignUp} /> 
+            <SignUp handleSignUp={props.handleSignUp} signUpMessage={props.signUpMessage}/> 
         </div>
     </div>
 )

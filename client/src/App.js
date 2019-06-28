@@ -33,7 +33,9 @@ class App extends React.Component {
       name:'',
       quote:'', 
       quoteSource:'',
-      quoteLoaded:''
+      quoteLoaded:'',
+      signInMessage:'',
+      singUpMessage:''
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -110,7 +112,10 @@ class App extends React.Component {
   isLoggedIn(){
     if(Auth.isUserAuthenticated()===true && !Auth.isTokenExpired()){
       this.setState({
-        isLoggedIn: true
+        isLoggedIn: true,
+        message:'',
+        singUpMessage:'',
+        signInMessage:''
       })
     }else{
       this.setState({
@@ -209,7 +214,7 @@ class App extends React.Component {
             name,
             token,
             entries,
-            message
+            signInMessage: message
         },
             ()=>{
               if(token!==undefined){
@@ -282,7 +287,7 @@ handleSignUp = async (event, Name, Email, password) => {
           },
           name,
           token,
-          message,
+          signUpMessage: message,
           entries:[]
       },
           ()=>{
@@ -359,9 +364,16 @@ toggleDiaryDrawer(){
           updateDisplayName={this.updateDisplayName}
           quote={this.state.quote}
           quoteSource={this.state.quoteSource}
+          message={this.state.message}
           />
           : 
-          <UnauthenticatedView handleSignUp={this.handleSignUp} handleSignIn={this.handleSignIn}/>}
+          <UnauthenticatedView 
+          handleSignUp={this.handleSignUp} 
+          handleSignIn={this.handleSignIn} 
+          message={this.state.message} 
+          signInMessage={this.state.signInMessage}
+          signUpMessage={this.state.signUpMessage}
+          />}
         
         <Background backgroundUrl={this.state.backgorundImgUrl} imgAuthor={this.state.imgAuthor} />
       </div>

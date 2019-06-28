@@ -77,6 +77,7 @@ class SignInForm extends React.Component{
                 <form onSubmit={(event)=>this.props.handleSignIn(event, this.state.email, this.state.password)}>
                     <input className="form-textbox" type="email" value={this.state.email} name="email" id="email" placeholder="email address" onChange={this.handleInputChange}/>
                     <input className="form-textbox" type="password" value={this.state.password} name="password" id="password" placeholder="password" onChange={this.handleInputChange}/>
+                    <p style={{color:'maroon', fontSize:'12px'}}>{this.props.message}</p>
                     <button type='submit'>Sign In</button>
                 </form>
             </div>
