@@ -1,6 +1,6 @@
 # Gratitude Aptitude - Gratitude New Tab Chrome Extension
 
-Thanks for viewing my repository. This is a chrome extensionw hich replaces the default new tab with a greeting and a fully functioning gratitude journal, intended to make your life that bit happier. Inspired by the Momentum dashboard, with a gratitude journal slide out panel along with some feature which I really missed from the default new tab - specifically the quick link to gmail along with the google app dropdown which I use regularly to access sites such as YouTube. 
+Thanks for viewing my repository. This is a chrome extension which replaces the default new tab with a greeting and a fully functioning gratitude journal, intended to make your life that bit happier. Inspired by the Momentum dashboard, with a gratitude journal slide out panel along with some feature which I really missed from the default new tab - specifically the quick link to gmail along with the google app dropdown which I use regularly to access sites such as YouTube. 
 
 You can view and install my dashboard in the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/gratitude-aptitude/jnjclhcllckpffefgaibgmkaehdibppo?authuser=0&hl=en) or clicking on the image down below for a video demo an some technical insights into my development process.
 
@@ -18,11 +18,11 @@ You can view and install my dashboard in the [Google Chrome Web Store](https://c
 
 `MONGO_URI_SECRET`: MongoDB URI Key
 
-`PAYPAL_CLIENT_SECRET`: Paypal Payment Gateway Client Secret
+`UNSPLASH_ACCESS_KEY`: Unsplash access key used for client identification. 
 
-`PAYPAL_CLIENT_ID`: Paypal Payment Gateway Cleint ID 
+`UNSPLASH_SECRET`: This is the Unsplash API client secret.
 
-`MAILCHIMP_AUTH`: Mailchimp authorisation key
+`JWT_KEY`: This is the JWT electronic signature used to make sure that the JWT message has not been altered when sent to the server. This can be anything you want it to be. 
 
 # Additional Config
 
