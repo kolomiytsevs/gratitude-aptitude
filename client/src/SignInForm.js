@@ -3,6 +3,7 @@ import axios from 'axios'
 import localStorage from 'local-storage'
 
 import './SignInForm.css'
+import SubmitSpinner from './SubmitSpinner';
 
 class SignInForm extends React.Component{
     constructor(props){
@@ -78,7 +79,11 @@ class SignInForm extends React.Component{
                     <input className="form-textbox" type="email" value={this.state.email} name="email" id="email" placeholder="email address" onChange={this.handleInputChange}/>
                     <input className="form-textbox" type="password" value={this.state.password} name="password" id="password" placeholder="password" onChange={this.handleInputChange}/>
                     <p style={{color:'maroon', fontSize:'12px'}}>{this.props.message}</p>
+                    {this.props.loading===true?
+                    <SubmitSpinner />
+                    :
                     <button type='submit'>Sign In</button>
+                    }
                 </form>
             </div>
         )

@@ -5,7 +5,7 @@ import SignInForm from './SignInForm'
 const SignIn = (props) =>(
     <div>
         <h1>Sign In</h1>
-        <SignInForm handleSignIn={props.handleSignIn} message={props.signInMessage}/>
+        <SignInForm handleSignIn={props.handleSignIn} message={props.signInMessage} loading={props.loading}/>
     </div>
 )
 

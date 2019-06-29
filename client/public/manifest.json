@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Gratitude Aptitude",
   "author": "Sasha Kolomiytsev",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Replace new tab with gratitude prompt",
   "icons": {
     "16": "icon.png",

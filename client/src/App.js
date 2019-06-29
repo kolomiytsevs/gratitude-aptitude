@@ -36,7 +36,9 @@ class App extends React.Component {
       quoteLoaded:'',
       signInMessage:'',
       singUpMessage:'',
-      iconFlash:false
+      iconFlash:false,
+      signInLoading:false,
+      signUpLoading:false
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -191,6 +193,9 @@ class App extends React.Component {
 
   handleSignIn = async (event, email, password) => {
     event.preventDefault()
+    this.setState({
+      signInLoading:true
+    })
     try{
         let res = axios({
             method:'post',
@@ -216,7 +221,8 @@ class App extends React.Component {
             name,
             token,
             entries,
-            signInMessage: message
+            signInMessage: message,
+            signInLoading:false
         },
             ()=>{
               if(token!==undefined){
@@ -231,6 +237,9 @@ class App extends React.Component {
     }
     catch(error){
         console.log(error)
+        this.setState({
+          signInLoading:false
+        })
     }
 }
   handleSignOut = async (event) => {
@@ -262,7 +271,9 @@ class App extends React.Component {
 }
 
 handleSignUp = async (event, Name, Email, password) => {
-  
+  this.setState({
+    signUpLoading:true
+  })
   event.preventDefault()
   try{
       let res = axios({
@@ -290,7 +301,8 @@ handleSignUp = async (event, Name, Email, password) => {
           name,
           token,
           signUpMessage: message,
-          entries:[]
+          entries:[],
+          signUpLoading:false
       },
           ()=>{
             this.setLocalStorage('user')
@@ -302,6 +314,9 @@ handleSignUp = async (event, Name, Email, password) => {
   }
   catch(error){
       console.log(error)
+      this.setState({
+        signUpLoading:false
+      })
   }
 }
 
@@ -383,6 +398,8 @@ changeIconColor(){
           message={this.state.message} 
           signInMessage={this.state.signInMessage}
           signUpMessage={this.state.signUpMessage}
+          signUpLoading={this.state.signUpLoading}
+          signInLoading={this.state.signInLoading}
           />}
         
         <Background backgroundUrl={this.state.backgorundImgUrl} imgAuthor={this.state.imgAuthor} />
