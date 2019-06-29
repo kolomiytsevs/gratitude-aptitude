@@ -87,14 +87,15 @@ Provides easy virtual DOM manipulation and state management. This makes building
 ### Context API
 While not a installed dependency, it replaced Redux in my project. It provides and incredibly easy to work with solution to 'prop drilling'. To me this seemed more intuitive and avoids a 'layer of indeirection' which can make code hard to follow when usign redux. 
 
-### React Helmet
-Allows individual setting of Title and metadata for each page when used with a pre renderer such as Snapshot (see below). This has fantastically improved SEO, and helped make Create React App SEO friendly. 
-
 ### Axios
 A light weigth promise based HTTP client which makes it easy to make request to the backend and handle responses. 
 
+### JWT Decode
+
 ### Local Storage
 Provides access to local storage in the browser. This is useful in preserving session data over multiple sessions in the client without the need to communicate with the server or database. 
+
+## Luxon
 
 ### Query String
 Used to parse transaction IDs sent as a url query string by Node Paypal SDK to our frontend in order to securely verify the transaction.
@@ -102,8 +103,11 @@ Used to parse transaction IDs sent as a url query string by Node Paypal SDK to o
 ### React Snapshot Pre-Rendering
 Generates static HTML pages for each route in the application. This can be used in combination with React Helmet ot imporve SEO. Most importantly it imporves page loading speedsas this takes the pressure off the server when generating and caching routes. My favorite dependency in the whole stack :)
 
-### Instafeed.js 
-Makes use of the Instagram API to quickly integrate a instagram feed.
+### React Transition Group
+
+### React On Click Outside 
+
+### Node Sass
 
 ## Testing
 
