@@ -14,6 +14,8 @@
     height:30px;
     
 }
+
+
 .diary-icon svg{
     width:30px;
     height:30px;
@@ -21,6 +23,30 @@
     transition: all 0.5s ease-out;
     
 }
+
+.icon-flash{
+    position:fixed;
+    top:0;
+    left:0;
+    margin:20px;
+    margin-top:15px;
+    cursor: pointer;
+    transform: translateX(0px);
+    transition: all 0.25s ease-out;
+    padding:10px;
+    border-radius: 50px;
+    background-color: rgba(0,0,0,0.3);
+    width:50px;
+    height:50px; 
+}
+
+.icon-flash svg{
+    width:50px;
+    height:50px;
+    fill: rgb(226, 120, 0);
+    transition: all 0.5s ease-out;
+}
+
 .color-diary-icon{
     position:fixed;
     top:0;
@@ -31,9 +57,9 @@
     z-index: 1000;
     transform: translateX(420px);
     transition: all 0.25s ease-out;
-    padding:10px;
-    
+    padding:10px;    
 }
+
 .color-diary-icon svg{
     width:30px;
     height:30px;

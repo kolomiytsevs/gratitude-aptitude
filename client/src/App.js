@@ -35,7 +35,8 @@ class App extends React.Component {
       quoteSource:'',
       quoteLoaded:'',
       signInMessage:'',
-      singUpMessage:''
+      singUpMessage:'',
+      iconFlash:false
     }
     this.getBackgroundImg = this.getBackgroundImg.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -49,6 +50,7 @@ class App extends React.Component {
     this.updateDisplayName = this.updateDisplayName.bind(this)
     this.getRandomQuote = this.getRandomQuote.bind(this)
     this.shouldQuoteUpdate = this.shouldQuoteUpdate.bind(this)
+    this.changeIconColor = this.changeIconColor.bind(this)
   } 
 
   
@@ -342,6 +344,12 @@ toggleDiaryDrawer(){
   })
 }
 
+changeIconColor(){
+  this.setState({
+    iconFlash:!this.state.iconFlash
+  })
+}
+
 
   render(){
     const isLoggedIn = this.state.isLoggedIn
@@ -365,6 +373,8 @@ toggleDiaryDrawer(){
           quote={this.state.quote}
           quoteSource={this.state.quoteSource}
           message={this.state.message}
+          iconFlash={this.state.iconFlash}
+          changeIconColor={this.changeIconColor}
           />
           : 
           <UnauthenticatedView 

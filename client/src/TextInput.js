@@ -6,6 +6,9 @@ import InputSelectIcon from './InputSelectIcon'
 import {PrayingHands, Pencil, Star, Heart} from './svgIcons'
 import InputField from './InputField'
 import Auth from './modules/Auth'
+import { setTimeout } from 'timers';
+import SubmitSpinner from './SubmitSpinner'
+
 
 class TextInput extends React.Component{
 constructor(props){
@@ -16,7 +19,8 @@ constructor(props){
         highlight:'',
         love:'',
         selectedField:'gratitude',
-        message:''
+        message:'',
+        loading:false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleIconClick = this.handleIconClick.bind(this)
@@ -33,6 +37,9 @@ handleIconClick(field){
 handleSubmit = async (event) =>{
     event.preventDefault()
     let {value, name} = event.target[0]
+    this.setState({
+        loading:true
+    })
     try{
         let res = axios({
             method:'post',
@@ -50,9 +57,13 @@ handleSubmit = async (event) =>{
         let {message} = data
         this.setState({
             message,
-            [name]:''
+            [name]:'',
+            loading:false
         })
+        this.props.changeIconColor()
         this.props.getDiaryEntries()
+        setTimeout(this.props.changeIconColor, 200)
+        
     }
     catch(error){
         console.log(error)
@@ -70,6 +81,10 @@ handleInputChange(event){
     render(){
         return(
             <div className='text-input'>
+                {this.state.loading?
+                <SubmitSpinner />
+                :
+                <div>
                 <div className={this.state.selectedField==='gratitude'? 'active-field':'hidden-field'}>
                 <form onSubmit={this.handleSubmit} autoComplete="off">
                 <input type='text' id='gratitude' name='gratitude' onChange={this.handleInputChange} value={this.state.gratitude} placeholder='something general you are grateful for'></input>
@@ -98,6 +113,8 @@ handleInputChange(event){
                 <label htmlFor='love'>self love</label>
                 </form>
                 </div>
+                </div>
+                }
                 {/*<InputField handleInputChange={this.handleInputChange} selectedField={this.state.selectedField} label={this.state.selectedField} value={this.state[this.state.selectedField]}/>*/}
                 <div className='icons'>                
                 <InputSelectIcon field={'gratitude'} selectedField={this.state.selectedField} handleIconClick={this.handleIconClick} icon={<PrayingHands />} />

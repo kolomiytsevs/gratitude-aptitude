@@ -13,7 +13,11 @@ import Quote from './Quote';
 
 const Body = (props) => (
     <div className='body'>
-    <DiaryIcon toggleDiaryDrawer={props.toggleDiaryDrawer} diaryDrawerOpen={props.diaryDrawerOpen}/>
+    <DiaryIcon 
+    toggleDiaryDrawer={props.toggleDiaryDrawer} 
+    diaryDrawerOpen={props.diaryDrawerOpen}
+    iconFlash={props.iconFlash}
+    />
     <DiaryDrawer 
         email={props.email} 
         getDiaryEntries={props.getDiaryEntries} 
@@ -25,7 +29,7 @@ const Body = (props) => (
     />   
     <Greeting name={props.name} updateDisplayName={props.updateDisplayName} token={props.token}/>
     <Time />
-    <TextInput token={props.token} name={props.name} email={props.email} getDiaryEntries={props.getDiaryEntries}/>
+    <TextInput token={props.token} name={props.name} email={props.email} getDiaryEntries={props.getDiaryEntries} changeIconColor={props.changeIconColor}/>
     <AuthorDetails authorName={props.authorName} authorProfile={props.authorProfile} imagePage={props.imagePage}/>
     <GoogleNav handleSignOut={props.handleSignOut}/>
     <Quote quote={props.quote} quoteSource={props.quoteSource} />     
