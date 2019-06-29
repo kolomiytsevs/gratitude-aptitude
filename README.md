@@ -47,8 +47,11 @@ This minimalist NodeJS framework which allows for very fast server side setup. T
 ### HelmetJS
 HelmetJS helps maintain information security by putting steps in palace to prevent malicious attacks. It is incredibly easy to implement and also highly customisable.
 
-###Luxon 
+### JSON Web Tokens
+JSON Web Tokens are a very convenient way of securely encoding information for verification. I use these in my application to only give users access to relevant data and log them into my application. 
 
+###Luxon 
+Luxon simplified the process of formating dates, making it easy to add lots of different formats both to the database and website.
 
 ### MongoDB
 Chose for it's flexibility, MongoDB is a NoSQL database and uses JSON to store data. As I develop the app and add new features, I want the information collected to remain flexible and want to have the option of adding additional fields in the future if necessary. The data is currently being served from their cloud service - MongoDB Atlas
@@ -58,6 +61,12 @@ Schema based object modelling which is desinged to work with MongoDB.
 
 ### Unsplash API
 Integrated on the node server using Unsplash.js, the Unsplash API is very flexible. As I wanted to efficiently cache my photos for faster loading, control photo loading (as I only want my photos to update daily), and wanted a higher request allowance, I decided to integrate their API as opossed to using their simpler Unsplash Source which can be very simply implemented on the front-end.
+
+### UUID
+Generates random IDs. Used for assigning IDs to everythign from users, to individual gratitude submissions before being added to the database.
+
+### Validator 
+Used in conjunction with mongoose Schemas to help validate information before it is submitted to the database. 
 
 ## Back-End Dependencies (Development)
 
