@@ -95,7 +95,7 @@ A light weigth promise based HTTP client which makes it easy to make request to 
 ### Local Storage
 Provides access to local storage in the browser. This is useful in preserving session data over multiple sessions in the client without the need to communicate with the server or database. 
 
-## Luxon
+### Luxon
 
 ### Query String
 Used to parse transaction IDs sent as a url query string by Node Paypal SDK to our frontend in order to securely verify the transaction.
