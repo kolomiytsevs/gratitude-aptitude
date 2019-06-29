@@ -27,7 +27,7 @@ You can view and install my dashboard in the [Google Chrome Web Store](https://c
 # Additional Config
 
 ### RESTful API 
-The obvious solution to having the front end hosted on google's web store, was to develop a REST API which is hosted on an independent server. I will detail all the possible requests below.
+The obvious solution to having the front end hosted on google's web store, was to develop a REST API which is hosted on an independent server. I will detail all the possible requests below. There are some routes which are not included in the repository. Specifically, the route for adding quotes to the database is not available on the server, and is instead hosted on my local machine. Please integrate this funcionality using the API documentation below.
 
 # Tech-Stack
 ## Back-End Dependencies (Production)
