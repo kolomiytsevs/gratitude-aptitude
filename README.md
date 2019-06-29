@@ -2,7 +2,7 @@
 
 Thanks for viewing my repository. This is a chrome extension which replaces the default new tab with a greeting and a fully functioning gratitude journal, intended to make your life that bit happier. Inspired by the Momentum dashboard, with a gratitude journal slide out panel along with some feature which I really missed from the default new tab - specifically the quick link to gmail along with the google app dropdown which I use regularly to access sites such as YouTube. 
 
-You can view and install my dashboard in the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/gratitude-aptitude/jnjclhcllckpffefgaibgmkaehdibppo?authuser=0&hl=en) or clicking on the image down below for a video demo an some technical insights into my development process.
+You can view and install my dashboard in the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/gratitude-aptitude/jnjclhcllckpffefgaibgmkaehdibppo?authuser=0&hl=en) or click on the image down below for a video demo and some technical insights into my development process.
 
 [![Gratitude Extension YoutUbe Video Demo](https://res.cloudinary.com/eastcott-and-burgess/image/upload/v1561817628/Capture2_yehz0z.jpg)](https://www.youtube.com/watch?v=8NuGFa7ICes)
 
@@ -33,25 +33,31 @@ The obvious solution to having the front end hosted on google's web store, was t
 ## Back-End Dependencies (Production)
 
 ### Compression
-An incredibly easy to use NodeJS middleware which allowed for the compression of files into Gzip upon deployment. This significantly improved page loading times. 
+An incredibly easy to use NodeJS middleware which allowed for the compression of files into Gzip upon deployment.
 
 ### Cors 
-Used to secure communication between the front-end and the NodeJS back-end API, without violating CORS policy. 
+Used to secure communication between the Chrome App and the NodeJS REST API, without violating CORS policy. 
+
+###Bcrypt
+Use to encrypt sensitive data such as passwords before being saved in the database, this also helps to make my login process more secure.
 
 ### ExpressJS
-This minimalist NodeJS framework which allows for very fast server side setup. Together with Node (which is run on Google's V8 engine), this allowed for fast perfomance and requests, while the native use of javascript makes handling of JSON data super easy. Additionally Node's single theraded event loop mechanism also allows it to handle multiple simultaneous connection efficiently. This helps ensure that our site can scale as engaement grows. 
+This minimalist NodeJS framework which allows for very fast server side setup. Together with Node (which is run on Google's V8 engine), this allowed for fast perfomance and requests, while the native use of javascript makes handling of JSON data super easy. Additionally Node's single theraded event loop mechanism also allows it to handle multiple simultaneous connection efficiently. This helps ensure that I can scale the app easily as engagement grows. 
 
 ### HelmetJS
-HelmetJS helps maintain information security by putting steps in palce to prevent malicious attacks. It is incredibly easy to implement and also highly customisable.
+HelmetJS helps maintain information security by putting steps in palace to prevent malicious attacks. It is incredibly easy to implement and also highly customisable.
+
+###Luxon 
+
 
 ### MongoDB
-Chose for it's flexibility, MongoDB is a NoSQL database and uses JSON to store data. As we develop and add new features, I want the information collected to remain flexible and want to have the option of adding additional fields in the future if necessary. While during development the collections are no longer being used, it is set up and ready to handle user auth integration and cookies. 
+Chose for it's flexibility, MongoDB is a NoSQL database and uses JSON to store data. As I develop the app and add new features, I want the information collected to remain flexible and want to have the option of adding additional fields in the future if necessary. The data is currently being served from their cloud service - MongoDB Atlas
 
 ### Mongoose 
 Schema based object modelling which is desinged to work with MongoDB. 
 
-### PayPal REST SDK
-As the REST SDK can be integrated on the Node server, this allowed for a large amount of customisationa and flexibility. As a mobile first ecommerce store I wanted to make the checkout porcess as easy as possible and reduce 'form filling', making PayPal the perfect solution as over 95% of our customers already choose PayPal to checkout on our website (even with alternatives being offered). This allow customers to intiate checkout straight from the basket drawer. Its integrationw ith node also allows for secure transaction authentication. 
+### Unsplash API
+Integrated on the node server using Unsplash.js, the Unsplash API is very flexible. As I wanted to efficiently cache my photos for faster loading, control photo loading (as I only want my photos to update daily), and wanted a higher request allowance, I decided to integrate their API as opossed to using their simpler Unsplash Source which can be very simply implemented on the front-end.
 
 ## Back-End Dependencies (Development)
 
