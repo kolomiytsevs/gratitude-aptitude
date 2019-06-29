@@ -38,8 +38,8 @@ An incredibly easy to use NodeJS middleware which allowed for the compression of
 ### Cors 
 Used to secure communication between the Chrome App and the NodeJS REST API, without violating CORS policy. 
 
-###Bcrypt
-Use to encrypt sensitive data such as passwords before being saved in the database, this also helps to make my login process more secure.
+### Bcrypt
+Used to encrypt sensitive data such as passwords before being saved in the database, this also helps to make my login process more secure.
 
 ### ExpressJS
 This minimalist NodeJS framework which allows for very fast server side setup. Together with Node (which is run on Google's V8 engine), this allowed for fast perfomance and requests, while the native use of javascript makes handling of JSON data super easy. Additionally Node's single theraded event loop mechanism also allows it to handle multiple simultaneous connection efficiently. This helps ensure that I can scale the app easily as engagement grows. 
