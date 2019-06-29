@@ -50,7 +50,7 @@ HelmetJS helps maintain information security by putting steps in palace to preve
 ### JSON Web Tokens
 JSON Web Tokens are a very convenient way of securely encoding information for verification. I use these in my application to only give users access to relevant data and log them into my application. 
 
-###Luxon 
+### Luxon 
 Luxon simplified the process of formating dates, making it easy to add lots of different formats both to the database and website.
 
 ### MongoDB
