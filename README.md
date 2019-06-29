@@ -2,6 +2,9 @@
 
 Thanks for viewing my repository. This is a chrome extension which replaces the default new tab with a greeting and a fully functioning gratitude journal, intended to make your life that bit happier. Inspired by the Momentum dashboard, with a gratitude journal slide out panel along with some feature which I really missed from the default new tab - specifically the quick link to gmail along with the google app dropdown which I use regularly to access sites such as YouTube. 
 
+### REST API 
+The obvious solution to having the front end hosted on google's web store, was to develop a REST API which is hosted on an independent server. I will detail all the possible requests below.
+
 You can view and install my dashboard in the [Google Chrome Web Store](https://chrome.google.com/webstore/detail/gratitude-aptitude/jnjclhcllckpffefgaibgmkaehdibppo?authuser=0&hl=en) or clicking on the image down below for a video demo an some technical insights into my development process.
 
 [![Gratitude Extension YoutUbe Video Demo](https://res.cloudinary.com/eastcott-and-burgess/image/upload/v1561817628/Capture2_yehz0z.jpg)](https://www.youtube.com/watch?v=8NuGFa7ICes)
