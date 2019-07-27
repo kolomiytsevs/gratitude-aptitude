@@ -109,6 +109,5 @@ Used to parse transaction IDs sent as a url query string by Node Paypal SDK to o
 ## Testing
 
 ### Jest
-Jest is a node based test runner, which functions as both a testing framework and an assertion library. It is incredibly useful for carrying out unit and integration tests. 
-
+Currently not being tested as it is constantly changing. Once the build is more stable I will add tests.
 ### Enzyme 
