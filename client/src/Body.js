@@ -27,8 +27,8 @@ const Body = (props) => (
         getDiaryEntries={props.getDiaryEntries} 
         token={props.token}
     />   
-    <Greeting name={props.name} updateDisplayName={props.updateDisplayName} token={props.token}/>
     <Time />
+    <Greeting name={props.name} updateDisplayName={props.updateDisplayName} token={props.token}/>
     <TextInput token={props.token} name={props.name} email={props.email} getDiaryEntries={props.getDiaryEntries} changeIconColor={props.changeIconColor}/>
     <AuthorDetails authorName={props.authorName} authorProfile={props.authorProfile} imagePage={props.imagePage}/>
     <GoogleNav handleSignOut={props.handleSignOut}/>
