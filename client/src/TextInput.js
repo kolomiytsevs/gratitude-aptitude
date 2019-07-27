@@ -104,14 +104,14 @@ handleInputChange(event){
                 </div>
                 <div className={this.state.selectedField==='highlight'? 'active-field':'hidden-field'}>
                 <form onSubmit={this.handleSubmit} autoComplete="off">
-                <input type='text'  id='highlight' name='highlight' onChange={this.handleInputChange} value={this.state.highlight} placeholder='something you want to do which is wellbeing oriented'></input>
+                <input type='text'  id='highlight' name='highlight' onChange={this.handleInputChange} value={this.state.highlight} placeholder='something you really enjoyed today'></input>
                 <br></br>
                 <label htmlFor='highlight'>highlight</label>
                 </form>
                 </div>
                 <div className={this.state.selectedField==='love'? 'active-field':'hidden-field'}>
                 <form onSubmit={this.handleSubmit} autoComplete="off">
-                <input type='text'  id='love' name='love' onChange={this.handleInputChange} value={this.state.love} placeholder='something you want to do which is wellbeing oriented'></input>
+                <input type='text'  id='love' name='love' onChange={this.handleInputChange} value={this.state.love} placeholder='something you are proud of yourself for'></input>
                 <br></br>
                 <label htmlFor='love'>self love</label>
                 </form>
