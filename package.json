@@ -26,7 +26,7 @@
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "es6-promise": "^4.2.8",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.2",
     "helmet": "^3.18.0",
     "isomorphic-fetch": "^2.2.1",
